@@ -1,28 +1,34 @@
 #!/bin/bash
 
-NIC=eth1
+#Inventory variables - Inventory variables - Inventory variables
+
+
+NIC=eth1 #NET Interface to attach services
 omnileads_release=oml-1819-fix-queue-timeout-0-seg
 TZ=America/Argentina/Cordoba
-ecctl=2333
-sca=1800
-oml_hostname=tenant1
+sca=1800 # Session cockie age
+
 ami_user=omnileadsami
 ami_password=5_MeO_DMT
+
 dialer_host=localhost
 dialer_user=dialer
 dialer_password=098098ZZZ
-mysql_host=localhost
-rtpengine_host=10.120.0.4
-pg_port=25060
-pg_default_database=defaultdb
-pg_default_user=doadmin
+mysql_host=localhost #DB for wombat dialer
+
+rtpengine_host=10.120.0.4 #RTPengine location
+
+# OMniLeads App PGSQL parameters
 pg_database=omnileads
 pg_username=omnileads
 pg_password=my_very_strong_pass
-
-# private host address and default password of your pgsql cluster database
+# private host addr and default password of your digitalocean pgsql cluster
 pg_host=
 pg_default_password=
+# digitalocean default pgsql cluster parameters
+pg_port=25060
+pg_default_database=defaultdb
+pg_default_user=doadmin
 
 
 yum update -y
@@ -31,7 +37,6 @@ yum install git -y
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
-echo '$oml_hostname' > /etc/hostname
 echo '$rtpengine_host  rtpengine' >> /etc/hosts
 
 echo "Clonando el repositorio  de omnileads"
