@@ -4,19 +4,19 @@
 
 
 NIC=eth1 #NET Interface to attach services
-omnileads_release=oml-1819-fix-queue-timeout-0-seg
-TZ=America/Argentina/Cordoba
+omnileads_release=release-1.11.0  #OMniLeads release to deploy
+TZ=America/Argentina/Cordoba  #Time Zone
 sca=1800 # Session cockie age
 
-ami_user=omnileadsami
-ami_password=5_MeO_DMT
+ami_user=omnileadsami   #Asterisk AMI user
+ami_password=5_MeO_DMT  #Asterisk AMI pass
 
-dialer_host=localhost
-dialer_user=dialer
-dialer_password=098098ZZZ
+dialer_host=localhost #Wombat dialer location
+dialer_user=demoadmin
+dialer_password=demo
 mysql_host=localhost #DB for wombat dialer
 
-rtpengine_host=10.120.0.4 #RTPengine location
+rtpengine_host=   #RTPengine location
 
 # OMniLeads App PGSQL parameters
 pg_database=omnileads
