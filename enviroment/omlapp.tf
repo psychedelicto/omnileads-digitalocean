@@ -1,6 +1,6 @@
 
 module "droplet_omlapp" {
-  source             = "./../terraform-digitalocean-droplet"
+  source             = "clouddrove/droplet/digitalocean"
   name               = var.droplet_name_omlapp
   application        = var.app
   environment        = var.env
@@ -19,7 +19,7 @@ module "droplet_omlapp" {
 }
 
 module "firewall" {
-  source          = "./../digitalocean-firewall"
+  source          = "clouddrove/firewall/digitalocean"
    name            = "fwomlapp"
    application     = var.app
    environment     = var.env

@@ -1,5 +1,5 @@
 variable "region" {
-  default = "sfo3"
+  default = "francisco-1"
 }
 variable "vpc_cidr" {
   default = "172.16.72.0/20"
@@ -20,7 +20,7 @@ variable "ssh_id" {
   default = "77:4e:2e:df:2c:9c:42:78:28:a3:e4:49:9f:4f:e6:07"
 }
 variable "droplet_size" {
-  default = "s-1vcpu-1gb"
+  default = "micro"
 }
 variable "disk_size" {
   default = 5

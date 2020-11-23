@@ -6,7 +6,7 @@ provider "digitalocean" {
 }
 
 module "vpc" {
-  source      = "./../terraform-digitalocean-vpc"
+  source      = "github.com/psychedelicto/terraform-digitalocean-vpc"
   name        = "vpc"
   application = var.app
   environment = var.env
@@ -17,7 +17,7 @@ module "vpc" {
 }
 
 module "droplet" {
-  source             = "./../terraform-digitalocean-droplet"
+  source             = "github.com/psychedelicto/terraform-digitalocean-droplet"
   name               = var.droplet_name_rtp
   application        = var.app
   environment        = var.env
@@ -36,7 +36,7 @@ module "droplet" {
 }
 
 module "firewall_rtp" {
-  source          = "./../digitalocean-firewall"
+  source          = "github.com/psychedelicto/terraform-digitalocean-firewall"
    name            = "fwrtp"
    application     = var.app
    environment     = var.env
