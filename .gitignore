@@ -1,6 +1,4 @@
-enviroment/.terraform*
-enviroment/*/.terraform*
-enviroment/*/terraform.tfstate
-enviroment/*/terraform.tfstate.backup
-enviroment/terraform.tfstate
-enviroment/terraform.tfstate.backup
+environment/.terraform/
+environment/.terraform/*
+environment/terraform.tfstate
+environment/terraform.tfstate.backup
