@@ -37,6 +37,45 @@ module "droplet" {
   })
 }
 
+# resource "digitalocean_database_cluster" "postgres-example" {
+#   name       = "example-postgres-cluster"
+#   engine     = "pg"
+#   version    = "11"
+#   size       = "db-s-1vcpu-1gb"
+#   region     = "nyc1"
+#   node_count = 1
+# }
+
+module "pgsql"  {
+   #source        = "github.com/psychedelicto/terraform-digitalocean-db"
+   source        = "../../terraform/terraform-digitalocean-db"
+   name          = var.name
+   engine        = "pg"
+   db_version    = "11"
+   size          = var.pgsql_size
+   region        = var.region
+   vpc_id        = module.vpc.id
+}
+
+resource "digitalocean_database_firewall" "pgsql-fw" {
+  cluster_id = module.pgsql.database_id
+
+  rule {
+    type  = "ip_addr"
+    value = var.vpc_cidr
+  }
+}
+
+# module "redis"  {
+#   #source        = "github.com/psychedelicto/terraform-digitalocean-db"
+#   source        = "../../terraform/terraform-digitalocean-db"
+#   name          = "example-redis"
+#   engine        = "redis"
+#   db_version    = "5"
+#   size          = var.redis_size
+#   region        = var.region
+# }
+
 # module "firewall_rtp" {
 #   source          = "github.com/psychedelicto/terraform-digitalocean-firewall"
 #    name            = "fwrtp"
@@ -51,24 +90,6 @@ module "droplet" {
 # }
 
 
-# resource "digitalocean_database_cluster" "oml-psql" {
-#   name       = var.env
-#   engine     = "pg"
-#   version    = "11"
-#   size       = "db-s-1vcpu-1gb"
-#   region     = var.region
-#   node_count = 1
-# }
-#
-# resource "digitalocean_database_cluster" "oml-redis" {
-#   name       = var.env
-#   engine     = "redis"
-#   version    = "5"
-#   size       = "db-s-1vcpu-1gb"
-#   region     = var.region
-#   node_count = 1
-# }
-#
 module "droplet_omlapp" {
   source             = "github.com/psychedelicto/terraform-digitalocean-droplet"
   image_name         = "centos-7-x64"
@@ -96,14 +117,14 @@ module "droplet_omlapp" {
     dialer_password           = "demo"
     ecctl                     = "28800"
     #mysql_host                = "127.0.0.1"
-    #postgres_host             = "127.0.0.1"
-    #postgres_port             = "5432"
-    pg_database         = "omnileads"
-    pg_username             = "omnileads"
-    pg_password         = "098098ZZZ"
-    #default_postgres_database = "postgres"
-    #default_postgres_user     = ""
-    #default_postgres_password = ""
+    pg_host                   = module.pgsql.database_private_host
+    pg_port                   = module.pgsql.database_port
+    pg_database               = "omnileads"
+    pg_username               = "omnileads"
+    pg_password               = "098098ZZZ"
+    pg_default_database       = module.pgsql.database_name
+    pg_default_user           = module.pgsql.database_user
+    pg_default_password       = module.pgsql.database_password
     rtpengine_host            = module.droplet.ipv4_address_private[0]
     sca                       = "3600"
     schedule                  = "agenda"
@@ -111,8 +132,7 @@ module "droplet_omlapp" {
   })
 }
 
-output "ipv4_address" { value = module.droplet.ipv4_address_private[0] }
-
+# output "ipv4_address" { value = module.droplet.ipv4_address_private[0] }
 
 #
 # module "firewall" {
