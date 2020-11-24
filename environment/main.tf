@@ -37,18 +37,8 @@ module "droplet" {
   })
 }
 
-# resource "digitalocean_database_cluster" "postgres-example" {
-#   name       = "example-postgres-cluster"
-#   engine     = "pg"
-#   version    = "11"
-#   size       = "db-s-1vcpu-1gb"
-#   region     = "nyc1"
-#   node_count = 1
-# }
-
 module "pgsql"  {
-   #source        = "github.com/psychedelicto/terraform-digitalocean-db"
-   source        = "../../terraform/terraform-digitalocean-db"
+   source        = "github.com/psychedelicto/terraform-digitalocean-db"
    name          = var.name
    engine        = "pg"
    db_version    = "11"
