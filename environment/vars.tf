@@ -5,7 +5,7 @@ variable "vpc_cidr" {
   default = "172.16.0.0/20"
 }
 variable "name" {
-  default = "sasadada"
+  default = "tenant-1"
 }
 variable "app" {
    default = "omlapp"
@@ -22,6 +22,13 @@ variable "ssh_id" {
 variable "droplet_size" {
   default = "s-1vcpu-2gb"
 }
+variable "pgsql_size" {
+  default = "db-s-1vcpu-1gb"
+}
+variable "redis_size" {
+  default = "db-s-1vcpu-1gb"
+}
+
 variable "disk_size" {
   default = 5
 }
