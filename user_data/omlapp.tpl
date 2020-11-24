@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#yum update -y
+yum update -y
 yum install git -y
 
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
@@ -19,9 +19,14 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
   --dialer_user=${dialer_user} \
   --dialer_password=${dialer_password} \
   --ecctl=${ecctl} \
+  --postgres_host=${pg_host} \
+  --postgres_port=${pg_port} \
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
   --postgres_password=${pg_password} \
+  --default_postgres_database=${pg_default_database} \
+  --default_postgres_user=${pg_default_user} \
+  --default_postgres_password=${pg_default_password} \
   --rtpengine_host=${rtpengine_host} \
   --sca=${sca} \
   --schedule=${schedule} \
