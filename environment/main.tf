@@ -27,7 +27,7 @@ module "droplet" {
   region             = var.region
   ssh_keys           = [var.ssh_id]
   vpc_uuid           = module.vpc.id
-  droplet_size       = var.droplet_size
+  droplet_size       = var.droplet_rtp_size
   monitoring         = false
   private_networking = true
   ipv6               = false
@@ -66,20 +66,6 @@ resource "digitalocean_database_firewall" "pgsql-fw" {
 #   region        = var.region
 # }
 
-# module "firewall_rtp" {
-#   source          = "github.com/psychedelicto/terraform-digitalocean-firewall"
-#    name            = "fwrtp"
-#    application     = var.app
-#    environment     = var.env
-#    label_order     = ["environment", "application", "name"]
-#    enable_firewall = true
-#    allowed_ip      = ["0.0.0.0/0"]
-#    protocol        = "udp"
-#    allowed_ports   = ["40000-50000"]
-#    droplet_ids     = module.droplet.id
-# }
-
-
 module "droplet_omlapp" {
   source             = "github.com/psychedelicto/terraform-digitalocean-droplet"
   image_name         = "centos-7-x64"
@@ -91,7 +77,7 @@ module "droplet_omlapp" {
   region             = var.region
   ssh_keys           = [var.ssh_id]
   vpc_uuid           = module.vpc.id
-  droplet_size       = var.droplet_size
+  droplet_size       = var.droplet_oml_size
   monitoring         = false
   private_networking = true
   ipv6               = false
@@ -131,15 +117,3 @@ module "lb" {
   target_droplets     = [module.droplet_omlapp.id[0]]
   target_port         = "443"
 }
-
-# module "firewall" {
-#    source           = "github.com/psychedelicto/terraform-digitalocean-firewall"
-#     name            = "fwomlapp"
-#     application     = var.app
-#     environment     = var.env
-#     label_order     = ["environment", "application", "name"]
-#     enable_firewall = true
-#     allowed_ip      = [module.lb.lb_ip]
-#     allowed_ports   = [443]
-#     droplet_ids     = module.droplet_omlapp.id
-# }
