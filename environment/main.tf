@@ -32,6 +32,7 @@ module "droplet_rtpengine" {
   })
   #
 }
+
 module "pgsql"  {
    source        = "github.com/psychedelicto/digitalocean-terraform-modules/db"
    #source      = "../../digitalocean-terraform-modules/db"
@@ -43,23 +44,32 @@ module "pgsql"  {
    vpc_id        = module.vpc.id
 }
 
-resource "digitalocean_database_firewall" "pgsql-fw" {
-  cluster_id = module.pgsql.database_id
+# resource "digitalocean_database_firewall" "pgsql-fw" {
+#   cluster_id = module.pgsql.database_id
+#
+#   rule {
+#     type  = "droplet"
+#     value = module.droplet_omlapp.id[0]
+#   }
+# }
 
-  rule {
-    type  = "ip_addr"
-    value = var.vpc_cidr
-  }
+module "redis"  {
+   source        = "github.com/psychedelicto/terraform-digitalocean-db"
+   name          = var.name
+   engine        = "redis"
+   db_version    = "5"
+   size          = var.redis_size
+   region        = var.region
+   vpc_id        = module.vpc.id
 }
 
-# module "redis"  {
-#   #source        = "github.com/psychedelicto/terraform-digitalocean-db"
-#   source        = "../../terraform/terraform-digitalocean-db"
-#   name          = "example-redis"
-#   engine        = "redis"
-#   db_version    = "5"
-#   size          = var.redis_size
-#   region        = var.region
+# resource "digitalocean_database_firewall" "redis-fw" {
+#   cluster_id = module.redis.database_id
+#
+#   rule {
+#     type  = "droplet"
+#     value = module.droplet_omlapp.id[0]
+#   }
 # }
 
 module "droplet_omlapp" {

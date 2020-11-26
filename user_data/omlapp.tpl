@@ -27,6 +27,7 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
 --default_postgres_database=${pg_default_database} \
 --default_postgres_user=${pg_default_user} \
 --default_postgres_password=${pg_default_password} \
+--redis_host=${redis_host} \
 --rtpengine_host=${rtpengine_host} \
 --sca=${sca} \
 --schedule=${schedule} \
