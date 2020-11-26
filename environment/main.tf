@@ -85,7 +85,7 @@ module "droplet_omlapp" {
   block_storage_size = var.disk_size
   user_data          = templatefile("../user_data/omlapp.tpl", {
     NIC                       = "eth1"
-    omnileads_release         = "release-1.11.7"
+    omnileads_release         = var.oml_release
     ami_user                  = "omnileadsami"
     ami_password              = "5_MeO_DMT"
     #mysql_host                = "127.0.0.1"

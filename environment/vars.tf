@@ -5,7 +5,7 @@ variable "vpc_cidr" {
   default = "172.16.0.0/20"
 }
 variable "name" {
-  default = "tenant-1"
+  default = "terraform-deploy"
 }
 variable "app" {
    default = "omlapp"
@@ -56,6 +56,6 @@ variable "droplet_slug" {
 variable "tz" {
   default = "America/Argentina/Cordoba"
 }
-variable "release" {
+variable "oml_release" {
   default = "release-1.11.7"
 }
