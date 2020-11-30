@@ -14,6 +14,7 @@ cd ominicontacto && git checkout $omnileads_release
 
 echo "inventory setting"
 python deploy/vagrant/edit_inventory.py --self_hosted=yes \
+
 --ami_user=${ami_user} \
 --ami_password=${ami_password} \
 --dialer_user=${dialer_user} \
@@ -31,6 +32,7 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
 --sca=${sca} \
 --schedule=${schedule} \
 --TZ=${TZ}
+
 sleep 5
 
 echo "deploy.sh execution"
