@@ -27,7 +27,7 @@ module "droplet" {
   region             = var.region
   ssh_keys           = [var.ssh_id]
   vpc_uuid           = module.vpc.id
-  droplet_size       = var.droplet_size
+  droplet_size       = var.droplet_rtp_size
   monitoring         = false
   private_networking = true
   ipv6               = false
@@ -36,19 +36,9 @@ module "droplet" {
   user_data          = templatefile("../user_data/rtpengine.tpl", {
   })
 }
-
-# resource "digitalocean_database_cluster" "postgres-example" {
-#   name       = "example-postgres-cluster"
-#   engine     = "pg"
-#   version    = "11"
-#   size       = "db-s-1vcpu-1gb"
-#   region     = "nyc1"
-#   node_count = 1
-# }
-
+#
 module "pgsql"  {
-   #source        = "github.com/psychedelicto/terraform-digitalocean-db"
-   source        = "../../terraform/terraform-digitalocean-db"
+   source        = "github.com/psychedelicto/terraform-digitalocean-db"
    name          = var.name
    engine        = "pg"
    db_version    = "11"
@@ -76,20 +66,6 @@ resource "digitalocean_database_firewall" "pgsql-fw" {
 #   region        = var.region
 # }
 
-# module "firewall_rtp" {
-#   source          = "github.com/psychedelicto/terraform-digitalocean-firewall"
-#    name            = "fwrtp"
-#    application     = var.app
-#    environment     = var.env
-#    label_order     = ["environment", "application", "name"]
-#    enable_firewall = true
-#    allowed_ip      = ["0.0.0.0/0"]
-#    protocol        = "udp"
-#    allowed_ports   = ["40000-50000"]
-#    droplet_ids     = module.droplet.id
-# }
-
-
 module "droplet_omlapp" {
   source             = "github.com/psychedelicto/terraform-digitalocean-droplet"
   image_name         = "centos-7-x64"
@@ -101,7 +77,7 @@ module "droplet_omlapp" {
   region             = var.region
   ssh_keys           = [var.ssh_id]
   vpc_uuid           = module.vpc.id
-  droplet_size       = var.droplet_size
+  droplet_size       = var.droplet_oml_size
   monitoring         = false
   private_networking = true
   ipv6               = false
@@ -109,14 +85,14 @@ module "droplet_omlapp" {
   block_storage_size = var.disk_size
   user_data          = templatefile("../user_data/omlapp.tpl", {
     NIC                       = "eth1"
-    omnileads_release         = "release-1.11.7"
+    omnileads_release         = var.oml_release
     ami_user                  = "omnileadsami"
     ami_password              = "5_MeO_DMT"
+    #mysql_host                = "127.0.0.1"
     #dialer_host               = "127.0.0.1"
     dialer_user               = "demoadmin"
     dialer_password           = "demo"
     ecctl                     = "28800"
-    #mysql_host                = "127.0.0.1"
     pg_host                   = module.pgsql.database_private_host
     pg_port                   = module.pgsql.database_port
     pg_database               = "omnileads"
@@ -132,17 +108,12 @@ module "droplet_omlapp" {
   })
 }
 
-# output "ipv4_address" { value = module.droplet.ipv4_address_private[0] }
-
-#
-# module "firewall" {
-#   source          = "github.com/psychedelicto/terraform-digitalocean-firewall"
-#    name            = "fwomlapp"
-#    application     = var.app
-#    environment     = var.env
-#    label_order     = ["environment", "application", "name"]
-#    enable_firewall = true
-#    allowed_ip      = ["0.0.0.0/0"]
-#    allowed_ports   = [22, 443]
-#    droplet_ids     = module.droplet_omlapp.id
-# }
+module "lb" {
+  source              = "github.com/psychedelicto/terraform-digitalocean-lb"
+  name                = var.name
+  region              = var.region
+  tls_passthrough     = true
+  vpc_id              = module.vpc.id
+  target_droplets     = [module.droplet_omlapp.id[0]]
+  target_port         = "443"
+}

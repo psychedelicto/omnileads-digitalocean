@@ -14,23 +14,25 @@ cd ominicontacto && git checkout $omnileads_release
 
 echo "inventory setting"
 python deploy/vagrant/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --ecctl=${ecctl} \
-  --postgres_host=${pg_host} \
-  --postgres_port=${pg_port} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
-  --rtpengine_host=${rtpengine_host} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --TZ=${TZ}
+
+--ami_user=${ami_user} \
+--ami_password=${ami_password} \
+--dialer_user=${dialer_user} \
+--dialer_password=${dialer_password} \
+--ecctl=${ecctl} \
+--postgres_host=${pg_host} \
+--postgres_port=${pg_port} \
+--postgres_database=${pg_database} \
+--postgres_user=${pg_username} \
+--postgres_password=${pg_password} \
+--default_postgres_database=${pg_default_database} \
+--default_postgres_user=${pg_default_user} \
+--default_postgres_password=${pg_default_password} \
+--rtpengine_host=${rtpengine_host} \
+--sca=${sca} \
+--schedule=${schedule} \
+--TZ=${TZ}
+
 sleep 5
 
 echo "deploy.sh execution"

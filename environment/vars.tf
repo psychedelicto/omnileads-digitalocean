@@ -5,7 +5,7 @@ variable "vpc_cidr" {
   default = "172.16.0.0/20"
 }
 variable "name" {
-  default = "tenant-1"
+  default = "terraform-deploy"
 }
 variable "app" {
    default = "omlapp"
@@ -19,8 +19,11 @@ variable "droplet_count" {
 variable "ssh_id" {
   default = "77:4e:2e:df:2c:9c:42:78:28:a3:e4:49:9f:4f:e6:07"
 }
-variable "droplet_size" {
-  default = "s-1vcpu-2gb"
+variable "droplet_oml_size" {
+  default = "s-4vcpu-8gb"
+}
+variable "droplet_rtp_size" {
+  default = "s-1vcpu-1gb"
 }
 variable "pgsql_size" {
   default = "db-s-1vcpu-1gb"
@@ -53,6 +56,6 @@ variable "droplet_slug" {
 variable "tz" {
   default = "America/Argentina/Cordoba"
 }
-variable "release" {
+variable "oml_release" {
   default = "release-1.11.7"
 }
