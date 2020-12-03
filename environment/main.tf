@@ -6,24 +6,20 @@ provider "digitalocean" {
 }
 
 module "vpc" {
-  source      = "github.com/psychedelicto/terraform-digitalocean-vpc"
+  #source      = "github.com/psychedelicto/terraform-digitalocean-vpc"
+  source      = "../../digitalocean-terraform-modules/vpc"
   name        = var.env
-  application = var.app
-  environment = var.env
-  label_order = ["environment", "application", "name"]
   enable_vpc  = true
   region      = var.region
   ip_ragne    = var.vpc_cidr
 }
 
-module "droplet" {
-  source             = "github.com/psychedelicto/terraform-digitalocean-droplet"
+module "droplet_rtpengine" {
+  #source             = "github.com/psychedelicto/terraform-digitalocean-droplets"
+  source      = "../../digitalocean-terraform-modules/droplet"
   image_name         = "centos-7-x64"
   name               = var.droplet_name_rtp
-  application        = var.app
-  environment        = var.env
-  label_order        = ["environment", "application", "name"]
-  droplet_count      = var.droplet_count
+  # droplet_count      = var.droplet_count
   region             = var.region
   ssh_keys           = [var.ssh_id]
   vpc_uuid           = module.vpc.id
@@ -31,14 +27,14 @@ module "droplet" {
   monitoring         = false
   private_networking = true
   ipv6               = false
-  floating_ip        = false
-  block_storage_size = var.disk_size
+  # floating_ip        = false
   user_data          = templatefile("../user_data/rtpengine.tpl", {
   })
+  #
 }
-#
 module "pgsql"  {
-   source        = "github.com/psychedelicto/terraform-digitalocean-db"
+   #source        = "github.com/psychedelicto/terraform-digitalocean-db"
+   source      = "../../digitalocean-terraform-modules/db"
    name          = var.name
    engine        = "pg"
    db_version    = "11"
@@ -67,13 +63,11 @@ resource "digitalocean_database_firewall" "pgsql-fw" {
 # }
 
 module "droplet_omlapp" {
-  source             = "github.com/psychedelicto/terraform-digitalocean-droplet"
+  #source             = "github.com/psychedelicto/terraform-digitalocean-droplets"
+  source      = "../../digitalocean-terraform-modules/droplet"
   image_name         = "centos-7-x64"
   name               = var.droplet_name_omlapp
-  application        = var.app
-  environment        = var.env
-  label_order        = ["environment", "application", "name"]
-  droplet_count      = var.droplet_count
+  # droplet_count      = var.droplet_count
   region             = var.region
   ssh_keys           = [var.ssh_id]
   vpc_uuid           = module.vpc.id
@@ -81,8 +75,8 @@ module "droplet_omlapp" {
   monitoring         = false
   private_networking = true
   ipv6               = false
-  floating_ip        = false
-  block_storage_size = var.disk_size
+  # floating_ip        = false
+  # block_storage_size = var.disk_size
   user_data          = templatefile("../user_data/omlapp.tpl", {
     NIC                       = "eth1"
     omnileads_release         = var.oml_release
@@ -101,7 +95,7 @@ module "droplet_omlapp" {
     pg_default_database       = module.pgsql.database_name
     pg_default_user           = module.pgsql.database_user
     pg_default_password       = module.pgsql.database_password
-    rtpengine_host            = module.droplet.ipv4_address_private[0]
+    rtpengine_host            = module.droplet_rtpengine.ipv4_address_private
     sca                       = "3600"
     schedule                  = "agenda"
     TZ                        = "America/Argentina/Cordoba"
@@ -109,7 +103,8 @@ module "droplet_omlapp" {
 }
 
 module "lb" {
-  source              = "github.com/psychedelicto/terraform-digitalocean-lb"
+  #source              = "github.com/psychedelicto/terraform-digitalocean-lb"
+  source      = "../../digitalocean-terraform-modules/loadbalancer"
   name                = var.name
   region              = var.region
   tls_passthrough     = true

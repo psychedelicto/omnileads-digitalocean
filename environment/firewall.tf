@@ -62,7 +62,7 @@ resource "digitalocean_firewall" "fw_omlapp" {
 resource "digitalocean_firewall" "fw_rtpengine" {
   name = "rtpengine"
 
-  droplet_ids = [module.droplet.id[0]]
+  droplet_ids = [module.droplet_rtpengine.id[0]]
 
   inbound_rule {
     protocol         = "tcp"
