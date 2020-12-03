@@ -6,8 +6,8 @@ provider "digitalocean" {
 }
 
 module "vpc" {
-  #source      = "github.com/psychedelicto/terraform-digitalocean-vpc"
-  source      = "../../digitalocean-terraform-modules/vpc"
+  source      = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
+  #source      = "../../digitalocean-terraform-modules/vpc"
   name        = var.env
   enable_vpc  = true
   region      = var.region
@@ -15,8 +15,8 @@ module "vpc" {
 }
 
 module "droplet_rtpengine" {
-  #source             = "github.com/psychedelicto/terraform-digitalocean-droplets"
-  source      = "../../digitalocean-terraform-modules/droplet"
+  source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+  #source      = "../../digitalocean-terraform-modules/droplet"
   image_name         = "centos-7-x64"
   name               = var.droplet_name_rtp
   # droplet_count      = var.droplet_count
@@ -33,8 +33,8 @@ module "droplet_rtpengine" {
   #
 }
 module "pgsql"  {
-   #source        = "github.com/psychedelicto/terraform-digitalocean-db"
-   source      = "../../digitalocean-terraform-modules/db"
+   source        = "github.com/psychedelicto/digitalocean-terraform-modules/db"
+   #source      = "../../digitalocean-terraform-modules/db"
    name          = var.name
    engine        = "pg"
    db_version    = "11"
@@ -63,8 +63,8 @@ resource "digitalocean_database_firewall" "pgsql-fw" {
 # }
 
 module "droplet_omlapp" {
-  #source             = "github.com/psychedelicto/terraform-digitalocean-droplets"
-  source      = "../../digitalocean-terraform-modules/droplet"
+  source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+  #source      = "../../digitalocean-terraform-modules/droplet"
   image_name         = "centos-7-x64"
   name               = var.droplet_name_omlapp
   # droplet_count      = var.droplet_count
@@ -103,8 +103,8 @@ module "droplet_omlapp" {
 }
 
 module "lb" {
-  #source              = "github.com/psychedelicto/terraform-digitalocean-lb"
-  source      = "../../digitalocean-terraform-modules/loadbalancer"
+  source              = "github.com/psychedelicto/digitalocean-terraform-modules/loadbalancer"
+  #source      = "../../digitalocean-terraform-modules/loadbalancer"
   name                = var.name
   region              = var.region
   tls_passthrough     = true
