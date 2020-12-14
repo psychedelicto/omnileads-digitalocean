@@ -5,7 +5,10 @@ variable "vpc_cidr" {
   default = "172.16.0.0/20"
 }
 variable "name" {
-  default = "terraform-deploy"
+  default = "terraform-deploy-pgsql"
+}
+variable "name_redis" {
+  default = "terraform-deploy-redis"
 }
 variable "app" {
    default = "omlapp"

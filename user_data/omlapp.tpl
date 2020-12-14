@@ -6,6 +6,10 @@ yum install git -y
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
+PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
+
+echo "${omlapp_hostname}    '$PRIVATE_IPV4'" > /etc/hostname
+
 echo "clonando el repositorio  de omnileads"
 cd /var/tmp
 git clone https://gitlab.com/omnileads/ominicontacto.git
@@ -18,6 +22,8 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
 --ami_password=${ami_password} \
 --dialer_user=${dialer_user} \
 --dialer_password=${dialer_password} \
+--dialer_host=${dialer_host} \
+--mysql_host=${mysql_host} \
 --ecctl=${ecctl} \
 --postgres_host=${pg_host} \
 --postgres_port=${pg_port} \
