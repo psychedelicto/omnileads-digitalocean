@@ -140,6 +140,7 @@
     mysql_host                = module.droplet_mariadb.ipv4_address_private
     sca                       = "3600"
     schedule                  = "agenda"
+    extern_ip                 = "none"
     TZ                        = "America/Argentina/Cordoba"
   })
   }

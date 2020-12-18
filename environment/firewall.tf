@@ -24,7 +24,7 @@ resource "digitalocean_firewall" "fw_omlapp" {
   inbound_rule {
     protocol                  = "tcp"
     port_range                = "5038"
-    source_load_balancer_uids = [module.droplet_wombat.id[0]]
+    source_droplet_ids        = [module.droplet_wombat.id[0]]
   }
 
   inbound_rule {

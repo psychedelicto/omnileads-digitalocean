@@ -14,7 +14,7 @@ echo "clonando el repositorio  de omnileads"
 cd /var/tmp
 git clone https://gitlab.com/omnileads/ominicontacto.git
 
-cd ominicontacto && git checkout $omnileads_release
+cd ominicontacto && git checkout ${omnileads_release}
 
 echo "inventory setting"
 python deploy/vagrant/edit_inventory.py --self_hosted=yes \
@@ -37,6 +37,7 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
 --rtpengine_host=${rtpengine_host} \
 --sca=${sca} \
 --schedule=${schedule} \
+--extern_ip=${extern_ip} \
 --TZ=${TZ}
 sleep 5
 
