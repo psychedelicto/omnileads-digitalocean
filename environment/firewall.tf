@@ -5,9 +5,10 @@
 # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
 #
 resource "digitalocean_firewall" "fw_omlapp" {
-  name = "omnileadsApp"
+  name = var.name_omlapp
 
   droplet_ids = [module.droplet_omlapp.id[0]]
+  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
 
   inbound_rule {
     protocol         = "tcp"
@@ -66,9 +67,10 @@ resource "digitalocean_firewall" "fw_omlapp" {
 
 
 resource "digitalocean_firewall" "fw_rtpengine" {
-  name = "rtpengine"
+  name = var.name_rtpengine
 
   droplet_ids = [module.droplet_rtpengine.id[0]]
+  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
 
   inbound_rule {
     protocol         = "tcp"
@@ -116,9 +118,10 @@ resource "digitalocean_firewall" "fw_rtpengine" {
 
 
 resource "digitalocean_firewall" "fw_wombat" {
-  name = "wombat"
+  name = var.name_wombat
 
   droplet_ids = [module.droplet_wombat.id[0]]
+  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
 
   inbound_rule {
     protocol         = "tcp"
@@ -171,9 +174,10 @@ resource "digitalocean_database_firewall" "pgsql-fw" {
 # Firewall aplicado al cluster REDIS # Firewall aplicado al cluster REDIS
 
 resource "digitalocean_firewall" "fw_redis" {
-  name = "redis"
+  name = var.name_redis
 
   droplet_ids = [module.droplet_wombat.id[0]]
+  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
 
   inbound_rule {
     protocol         = "tcp"

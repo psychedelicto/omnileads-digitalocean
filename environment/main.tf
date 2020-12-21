@@ -5,20 +5,28 @@
   #
   }
 
+  resource "digitalocean_tag" "tenant" {
+    name = "foobar"
+  }
+
+  resource "digitalocean_tag" "env" {
+    name = "staging"
+  }
+
   module "vpc" {
   source      = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
   #source      = "../../digitalocean-terraform-modules/vpc"
-  name        = var.env
+  name        = var.name
   enable_vpc  = true
   region      = var.region
   ip_ragne    = var.vpc_cidr
   }
 
   module "droplet_rtpengine" {
-  source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-  #source      = "../../digitalocean-terraform-modules/droplet"
-  image_name         = "centos-7-x64"
-  name               = var.droplet_name_rtp
+  #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+  source      = "../../digitalocean-terraform-modules/droplet"
+  image_name         = var.img_centos
+  name               = var.name_rtpengine
   # droplet_count      = var.droplet_count
   region             = var.region
   ssh_keys           = [var.ssh_id]
@@ -34,7 +42,7 @@
   module "pgsql"  {
    source        = "github.com/psychedelicto/digitalocean-terraform-modules/db"
    #source      = "../../digitalocean-terraform-modules/db"
-   name          = var.name
+   name          = var.name_pgsql
    engine        = "pg"
    db_version    = "11"
    size          = var.pgsql_size
@@ -44,9 +52,9 @@
 
 
   module "droplet_redis"  {
-   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   #source      = "../../digitalocean-terraform-modules/droplet"
-   image_name         = "ubuntu-18-04-x64"
+   #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+   source      = "../../digitalocean-terraform-modules/droplet"
+   image_name         = var.img_ubuntu
    name               = var.name_redis
    region             = var.region
    ssh_keys           = [var.ssh_id]
@@ -61,10 +69,10 @@
   }
 
   module "droplet_mariadb"  {
-   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   #source            = "../../digitalocean-terraform-modules/droplet"
-   image_name         = "centos-7-x64"
-   name               = "mariadb"
+   #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+   source            = "../../digitalocean-terraform-modules/droplet"
+   image_name         = var.img_centos
+   name               = var.name_mariadb
    region             = var.region
    ssh_keys           = [var.ssh_id]
    vpc_uuid           = module.vpc.id
@@ -80,10 +88,10 @@
    }
 
   module "droplet_wombat"  {
-   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   #source            = "../../digitalocean-terraform-modules/droplet"
-   image_name         = "centos-7-x64"
-   name               = "wombat"
+   #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+   source            = "../../digitalocean-terraform-modules/droplet"
+   image_name         = var.img_centos
+   name               = var.name_wombat
    region             = var.region
    ssh_keys           = [var.ssh_id]
    vpc_uuid           = module.vpc.id
@@ -93,18 +101,18 @@
    ipv6               = false
    user_data          = templatefile("../user_data/wombat.tpl", {
      mysql_host                = module.droplet_mariadb.ipv4_address_private
-     mysql_database            = "wombat"
-     mysql_username            = "wombat"
-     mysql_password            = "admin123"
+     mysql_database            = var.wombat_database
+     mysql_username            = var.wombat_database_username
+     mysql_password            = var.wombat_database_password
    })
   }
 
 
   module "droplet_omlapp" {
-  source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-  #source            = "../../digitalocean-terraform-modules/droplet"
-  image_name         = "centos-7-x64"
-  name               = var.droplet_name_omlapp
+  #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+  source            = "../../digitalocean-terraform-modules/droplet"
+  image_name         = var.img_centos
+  name               = var.name_omlapp
   # droplet_count      = var.droplet_count
   region             = var.region
   ssh_keys           = [var.ssh_id]
@@ -116,21 +124,21 @@
   # floating_ip        = false
   # block_storage_size = var.disk_size
   user_data          = templatefile("../user_data/omlapp.tpl", {
-    NIC                       = "eth1"
-    omlapp_hostname           = "omnileads.example"
+    NIC                       = var.network_interface
+    omlapp_hostname           = var.omlapp_hostname
     omnileads_release         = var.oml_release
-    ami_user                  = "omnileadsami"
-    ami_password              = "5_MeO_DMT"
+    ami_user                  = var.ami_user
+    ami_password              = var.ami_password
     mysql_host                = module.droplet_redis.ipv4_address_private
     dialer_host               = module.droplet_redis.ipv4_address_private
-    dialer_user               = "demoadmin"
-    dialer_password           = "demo"
-    ecctl                     = "28800"
+    dialer_user               = var.dialer_user
+    dialer_password           = var.dialer_password
+    ecctl                     = var.ecctl
     pg_host                   = module.pgsql.database_private_host
     pg_port                   = module.pgsql.database_port
-    pg_database               = "omnileads"
-    pg_username               = "omnileads"
-    pg_password               = "098098ZZZ"
+    pg_database               = var.pg_database
+    pg_username               = var.pg_username
+    pg_password               = var.pg_password
     pg_default_database       = module.pgsql.database_name
     pg_default_user           = module.pgsql.database_user
     pg_default_password       = module.pgsql.database_password
@@ -138,17 +146,17 @@
     redis_host                = module.droplet_redis.ipv4_address_private
     dialer_host               = module.droplet_wombat.ipv4_address_private
     mysql_host                = module.droplet_mariadb.ipv4_address_private
-    sca                       = "3600"
-    schedule                  = "agenda"
-    extern_ip                 = "none"
-    TZ                        = "America/Argentina/Cordoba"
+    sca                       = var.sca
+    schedule                  = var.schedule
+    extern_ip                 = var.extern_ip
+    TZ                        = var.oml_tz
   })
   }
 
   module "lb" {
   source              = "github.com/psychedelicto/digitalocean-terraform-modules/loadbalancer"
   #source             = "../../digitalocean-terraform-modules/loadbalancer"
-  name                = var.name
+  name                = var.name_lb
   region              = var.region
   tls_passthrough     = true
   vpc_id              = module.vpc.id
