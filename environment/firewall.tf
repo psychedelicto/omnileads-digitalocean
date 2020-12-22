@@ -3,12 +3,23 @@
 # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
 # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
 # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
-#
+
+resource "digitalocean_tag" "tenant" {
+  name = var.tenant
+}
+resource "digitalocean_tag" "environment" {
+  name = var.environment
+}
+
 resource "digitalocean_firewall" "fw_omlapp" {
   name = var.name_omlapp
 
   droplet_ids = [module.droplet_omlapp.id[0]]
-  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
+
+  tags               = [
+    digitalocean_tag.tenant.id,
+    digitalocean_tag.environment.id
+  ]
 
   inbound_rule {
     protocol         = "tcp"
@@ -70,7 +81,11 @@ resource "digitalocean_firewall" "fw_rtpengine" {
   name = var.name_rtpengine
 
   droplet_ids = [module.droplet_rtpengine.id[0]]
-  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
+
+  tags               = [
+    digitalocean_tag.tenant.id,
+    digitalocean_tag.environment.id
+  ]
 
   inbound_rule {
     protocol         = "tcp"
@@ -121,7 +136,11 @@ resource "digitalocean_firewall" "fw_wombat" {
   name = var.name_wombat
 
   droplet_ids = [module.droplet_wombat.id[0]]
-  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
+
+  tags               = [
+    digitalocean_tag.tenant.id,
+    digitalocean_tag.environment.id
+  ]
 
   inbound_rule {
     protocol         = "tcp"
@@ -177,7 +196,12 @@ resource "digitalocean_firewall" "fw_redis" {
   name = var.name_redis
 
   droplet_ids = [module.droplet_wombat.id[0]]
-  tags   = [digitalocean_tag.tenant.id,digitalocean_tag.env.id]
+
+  tags               = [
+    digitalocean_tag.tenant.id,
+    digitalocean_tag.environment.id
+  ]
+
 
   inbound_rule {
     protocol         = "tcp"

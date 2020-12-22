@@ -5,28 +5,26 @@
   #
   }
 
-  resource "digitalocean_tag" "tenant" {
-    name = "foobar"
-  }
 
-  resource "digitalocean_tag" "env" {
-    name = "staging"
-  }
 
   module "vpc" {
   source      = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
   #source      = "../../digitalocean-terraform-modules/vpc"
   name        = var.name
+  tenant             = var.tenant
+  environment        = var.environment
   enable_vpc  = true
   region      = var.region
   ip_ragne    = var.vpc_cidr
   }
 
   module "droplet_rtpengine" {
-  #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-  source      = "../../digitalocean-terraform-modules/droplet"
+  source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+  #source      = "../../digitalocean-terraform-modules/droplet"
   image_name         = var.img_centos
   name               = var.name_rtpengine
+  tenant             = var.tenant
+  environment        = var.environment
   # droplet_count      = var.droplet_count
   region             = var.region
   ssh_keys           = [var.ssh_id]
@@ -39,10 +37,13 @@
   })
   }
 
+
   module "pgsql"  {
    source        = "github.com/psychedelicto/digitalocean-terraform-modules/db"
    #source      = "../../digitalocean-terraform-modules/db"
    name          = var.name_pgsql
+   tenant             = var.tenant
+   environment        = var.environment
    engine        = "pg"
    db_version    = "11"
    size          = var.pgsql_size
@@ -52,10 +53,12 @@
 
 
   module "droplet_redis"  {
-   #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   source      = "../../digitalocean-terraform-modules/droplet"
+   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+   #source      = "../../digitalocean-terraform-modules/droplet"
    image_name         = var.img_ubuntu
    name               = var.name_redis
+   tenant             = var.tenant
+   environment        = var.environment
    region             = var.region
    ssh_keys           = [var.ssh_id]
    vpc_uuid           = module.vpc.id
@@ -69,10 +72,12 @@
   }
 
   module "droplet_mariadb"  {
-   #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   source            = "../../digitalocean-terraform-modules/droplet"
+   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+   #source            = "../../digitalocean-terraform-modules/droplet"
    image_name         = var.img_centos
    name               = var.name_mariadb
+   tenant             = var.tenant
+   environment        = var.environment
    region             = var.region
    ssh_keys           = [var.ssh_id]
    vpc_uuid           = module.vpc.id
@@ -88,10 +93,12 @@
    }
 
   module "droplet_wombat"  {
-   #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   source            = "../../digitalocean-terraform-modules/droplet"
+   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+   #source            = "../../digitalocean-terraform-modules/droplet"
    image_name         = var.img_centos
    name               = var.name_wombat
+   tenant             = var.tenant
+   environment        = var.environment
    region             = var.region
    ssh_keys           = [var.ssh_id]
    vpc_uuid           = module.vpc.id
@@ -109,10 +116,12 @@
 
 
   module "droplet_omlapp" {
-  #source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-  source            = "../../digitalocean-terraform-modules/droplet"
+  source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+  #source            = "../../digitalocean-terraform-modules/droplet"
   image_name         = var.img_centos
   name               = var.name_omlapp
+  tenant             = var.tenant
+  environment        = var.environment
   # droplet_count      = var.droplet_count
   region             = var.region
   ssh_keys           = [var.ssh_id]
@@ -157,6 +166,8 @@
   source              = "github.com/psychedelicto/digitalocean-terraform-modules/loadbalancer"
   #source             = "../../digitalocean-terraform-modules/loadbalancer"
   name                = var.name_lb
+  tenant             = var.tenant
+  environment        = var.environment
   region              = var.region
   tls_passthrough     = true
   vpc_id              = module.vpc.id

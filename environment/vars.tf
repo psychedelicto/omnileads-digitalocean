@@ -9,6 +9,15 @@ variable "vpc_cidr" {
 variable "name" {
   default = "tenant1"
 }
+
+variable "tenant" {
+  default = "tenant1"
+}
+
+variable "environment" {
+  default = "develop"
+}
+
 variable "name_rtpengine" {
   default = "tenant1-rtp"
 }
