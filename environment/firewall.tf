@@ -16,11 +16,6 @@ resource "digitalocean_firewall" "fw_omlapp" {
 
   droplet_ids = [module.droplet_omlapp.id[0]]
 
-  tags               = [
-    digitalocean_tag.tenant.id,
-    digitalocean_tag.environment.id
-  ]
-
   inbound_rule {
     protocol         = "tcp"
     port_range       = "22"
@@ -82,11 +77,6 @@ resource "digitalocean_firewall" "fw_rtpengine" {
 
   droplet_ids = [module.droplet_rtpengine.id[0]]
 
-  tags               = [
-    digitalocean_tag.tenant.id,
-    digitalocean_tag.environment.id
-  ]
-
   inbound_rule {
     protocol         = "tcp"
     port_range       = "22"
@@ -137,10 +127,6 @@ resource "digitalocean_firewall" "fw_wombat" {
 
   droplet_ids = [module.droplet_wombat.id[0]]
 
-  tags               = [
-    digitalocean_tag.tenant.id,
-    digitalocean_tag.environment.id
-  ]
 
   inbound_rule {
     protocol         = "tcp"
@@ -197,10 +183,6 @@ resource "digitalocean_firewall" "fw_redis" {
 
   droplet_ids = [module.droplet_wombat.id[0]]
 
-  tags               = [
-    digitalocean_tag.tenant.id,
-    digitalocean_tag.environment.id
-  ]
 
 
   inbound_rule {
@@ -213,6 +195,47 @@ resource "digitalocean_firewall" "fw_redis" {
     protocol            = "tcp"
     port_range          = "6379"
     source_droplet_ids  = [module.droplet_omlapp.id[0]]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "udp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+  protocol              = "icmp"
+  destination_addresses = ["0.0.0.0/0", "::/0"]
+}
+}
+
+
+# Firewall aplicado MARIADB # Firewall aplicado MARIADB
+# Firewall aplicado MARIADB # Firewall aplicado MARIADB
+# Firewall aplicado MARIADB # Firewall aplicado MARIADB
+
+resource "digitalocean_firewall" "fw_mariadb" {
+  name = var.name_mariadb
+
+  droplet_ids = [module.droplet_wombat.id[0]]
+
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "22"
+    source_addresses = ["0.0.0.0/0"]
+  }
+
+  inbound_rule {
+    protocol            = "tcp"
+    port_range          = "3306"
+    source_droplet_ids  = [module.droplet_wombat.id[0]]
   }
 
   outbound_rule {

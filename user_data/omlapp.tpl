@@ -8,7 +8,7 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
-echo "${omlapp_hostname}    '$PRIVATE_IPV4'" > /etc/hostname
+echo "${omlapp_hostname}" > /etc/hostname
 
 echo "clonando el repositorio  de omnileads"
 cd /var/tmp

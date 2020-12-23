@@ -4,7 +4,7 @@ variable "region" {
   default = "sfo3"
 }
 variable "vpc_cidr" {
-  default = "172.16.0.0/20"
+  default = "10.16.0.0/20"
 }
 variable "name" {
   default = "tenant1"
