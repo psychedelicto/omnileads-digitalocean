@@ -3,9 +3,16 @@
 # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
 # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
 # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
-#
+
+resource "digitalocean_tag" "tenant" {
+  name = var.tenant
+}
+resource "digitalocean_tag" "environment" {
+  name = var.environment
+}
+
 resource "digitalocean_firewall" "fw_omlapp" {
-  name = "omnileadsApp"
+  name = var.name_omlapp
 
   droplet_ids = [module.droplet_omlapp.id[0]]
 
@@ -66,7 +73,7 @@ resource "digitalocean_firewall" "fw_omlapp" {
 
 
 resource "digitalocean_firewall" "fw_rtpengine" {
-  name = "rtpengine"
+  name = var.name_rtpengine
 
   droplet_ids = [module.droplet_rtpengine.id[0]]
 
@@ -116,9 +123,10 @@ resource "digitalocean_firewall" "fw_rtpengine" {
 
 
 resource "digitalocean_firewall" "fw_wombat" {
-  name = "wombat"
+  name = var.name_wombat
 
   droplet_ids = [module.droplet_wombat.id[0]]
+
 
   inbound_rule {
     protocol         = "tcp"
@@ -171,9 +179,11 @@ resource "digitalocean_database_firewall" "pgsql-fw" {
 # Firewall aplicado al cluster REDIS # Firewall aplicado al cluster REDIS
 
 resource "digitalocean_firewall" "fw_redis" {
-  name = "redis"
+  name = var.name_redis
 
   droplet_ids = [module.droplet_wombat.id[0]]
+
+
 
   inbound_rule {
     protocol         = "tcp"
@@ -185,6 +195,47 @@ resource "digitalocean_firewall" "fw_redis" {
     protocol            = "tcp"
     port_range          = "6379"
     source_droplet_ids  = [module.droplet_omlapp.id[0]]
+  }
+
+  outbound_rule {
+    protocol              = "tcp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+    protocol              = "udp"
+    port_range            = "1-65535"
+    destination_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  outbound_rule {
+  protocol              = "icmp"
+  destination_addresses = ["0.0.0.0/0", "::/0"]
+}
+}
+
+
+# Firewall aplicado MARIADB # Firewall aplicado MARIADB
+# Firewall aplicado MARIADB # Firewall aplicado MARIADB
+# Firewall aplicado MARIADB # Firewall aplicado MARIADB
+
+resource "digitalocean_firewall" "fw_mariadb" {
+  name = var.name_mariadb
+
+  droplet_ids = [module.droplet_wombat.id[0]]
+
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "22"
+    source_addresses = ["0.0.0.0/0"]
+  }
+
+  inbound_rule {
+    protocol            = "tcp"
+    port_range          = "3306"
+    source_droplet_ids  = [module.droplet_wombat.id[0]]
   }
 
   outbound_rule {
