@@ -6,12 +6,14 @@ variable "region" {
 variable "vpc_cidr" {
   default = "10.16.0.0/20"
 }
-variable "name" {
-  default = "tenant1"
+variable "domain_name" {
+  default = "omnileads.cloud"
 }
-
+variable "name" {
+  default = "naturalpoint"
+}
 variable "tenant" {
-  default = "tenant1"
+  default = "naturalpoint"
 }
 
 variable "environment" {
@@ -19,25 +21,25 @@ variable "environment" {
 }
 
 variable "name_rtpengine" {
-  default = "tenant1-rtp"
+  default = "naturalpoint-rtp"
 }
 variable "name_pgsql" {
-  default = "tenant1-pgsql"
+  default = "naturalpoint-pgsql"
 }
 variable "name_redis" {
-  default = "tenant1-redis"
+  default = "naturalpoint-redis"
 }
 variable "name_mariadb" {
-  default = "tenant1-mariadb"
+  default = "naturalpoint-mariadb"
 }
 variable "name_wombat" {
-  default = "tenant1-wombat"
+  default = "naturalpoint-wombat"
 }
 variable "name_omlapp" {
-  default = "tenant1-omalapp"
+  default = "naturalpoint-omalapp"
 }
 variable "name_lb" {
-  default = "tenant1-lb"
+  default = "naturalpoint-lb"
 }
 
 
@@ -54,9 +56,12 @@ variable "ssh_id" {
   default = "77:4e:2e:df:2c:9c:42:78:28:a3:e4:49:9f:4f:e6:07"
 }
 variable "droplet_oml_size" {
-  default = "s-2vcpu-2gb"
+  default = "s-1vcpu-1gb"
 }
 variable "droplet_rtp_size" {
+  default = "s-1vcpu-1gb"
+}
+variable "droplet_dialer_size" {
   default = "s-1vcpu-1gb"
 }
 variable "pgsql_size" {
@@ -65,7 +70,7 @@ variable "pgsql_size" {
 variable "redis_size" {
   default = "db-s-1vcpu-1gb"
 }
-variable "disk_size" {
+variable "disk_recording_size" {
   default = 5
 }
 variable "img_centos" {
@@ -96,6 +101,10 @@ variable "droplet_id" {
 variable "droplet_slug" {
   default = ""
 }
+variable "ssl_cert" {
+  default = "oml-cloud"
+}
+
 
 # OMniLeads deploy vars
 
@@ -108,8 +117,11 @@ variable "oml_release" {
 variable "network_interface" {
   default = "eth1"
 }
+variable "recording_device" {
+  default = "naturalpoint"
+}
 variable "omlapp_hostname" {
-  default = "tenant1"
+  default = "naturalpoint.omnileads.cloud"
 }
 variable "ami_user" {
   default = "omnileadsami"

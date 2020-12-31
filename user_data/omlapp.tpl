@@ -53,4 +53,18 @@ echo "digitalocean requiere SSL to connect PGSQL"
 echo "SSLMode       = require" >> /etc/odbc.ini
 
 
+echo "******************** link to recordings device ***************************"
+echo "******************** link to recordings device ***************************"
+rm -rf /opt/omnileads/asterisk/var/spool/asterisk/monitor
+chown  omnileads.omnileads -R /mnt/"${recording_device}"
+ln -s /mnt/"${recording_device}"/ /opt/omnileads/asterisk/var/spool/asterisk/monitor
+chown omnileads.omnileads -R /opt/omnileads/asterisk/var/spool/
+
+echo "**[omniapp] Instalando sngrep"
+yum install ncurses-devel make libpcap-devel pcre-devel \
+    openssl-devel git gcc autoconf automake -y
+cd /root && git clone https://github.com/irontec/sngrep
+cd sngrep && ./bootstrap.sh && ./configure && make && make install
+ln -s /usr/local/bin/sngrep /usr/bin/sngrep
+
 reboot
