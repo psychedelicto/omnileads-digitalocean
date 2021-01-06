@@ -8,7 +8,13 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
-echo "${omlapp_hostname}" > /etc/hostname
+#echo "${omlapp_hostname}" > /etc/hostname
+hostnamectl set-hostname "${omlapp_hostname}"
+
+#echo "******************** fix hostname and localhost ***************************"
+#echo "******************** fix hostname and localhost ***************************"
+#sed -i 's/127.0.0.1 '${omlapp_hostname}'/#127.0.0.1 '${omlapp_hostname}'/' /etc/hosts
+#sed -i 's/::1 '${omlapp_hostname}'/#::1 '${omlapp_hostname}'/' /etc/hosts
 
 echo "clonando el repositorio  de omnileads"
 cd /var/tmp
@@ -52,13 +58,12 @@ fi
 echo "digitalocean requiere SSL to connect PGSQL"
 echo "SSLMode       = require" >> /etc/odbc.ini
 
-
-echo "******************** link to recordings device ***************************"
-echo "******************** link to recordings device ***************************"
-rm -rf /opt/omnileads/asterisk/var/spool/asterisk/monitor
-chown  omnileads.omnileads -R /mnt/"${recording_device}"
-ln -s /mnt/"${recording_device}"/ /opt/omnileads/asterisk/var/spool/asterisk/monitor
-chown omnileads.omnileads -R /opt/omnileads/asterisk/var/spool/
+#echo "******************** link to recordings device ***************************"
+#echo "******************** link to recordings device ***************************"
+#rm -rf /opt/omnileads/asterisk/var/spool/asterisk/monitor
+#chown  omnileads.omnileads -R /mnt/"${recording_device}"
+#ln -s /mnt/"${recording_device}"/ /opt/omnileads/asterisk/var/spool/asterisk/monitor
+#chown omnileads.omnileads -R /opt/omnileads/asterisk/var/spool/
 
 echo "**[omniapp] Instalando sngrep"
 yum install ncurses-devel make libpcap-devel pcre-devel \
@@ -66,5 +71,7 @@ yum install ncurses-devel make libpcap-devel pcre-devel \
 cd /root && git clone https://github.com/irontec/sngrep
 cd sngrep && ./bootstrap.sh && ./configure && make && make install
 ln -s /usr/local/bin/sngrep /usr/bin/sngrep
+
+
 
 reboot

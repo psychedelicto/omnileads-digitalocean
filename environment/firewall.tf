@@ -34,16 +34,24 @@ resource "digitalocean_firewall" "fw_omlapp" {
     source_droplet_ids        = [module.droplet_wombat.id[0]]
   }
 
-  inbound_rule {
-    protocol         = "udp"
-    port_range       = "5161"
-    source_addresses = ["190.19.150.8"]
+  dynamic "inbound_rule" {
+    iterator = sip_allowed_ip
+    for_each = var.sip_allowed_ip
+    content {
+      port_range       = "5161"
+      protocol         = "udp"
+      source_addresses = var.sip_allowed_ip
+    }
   }
 
-  inbound_rule {
-    protocol         = "udp"
-    port_range       = "40000-50000"
-    source_addresses = ["190.19.150.8"]
+  dynamic "inbound_rule" {
+    iterator = sip_allowed_ip
+    for_each = var.sip_allowed_ip
+    content {
+      port_range       = "40000-50000"
+      protocol         = "udp"
+      source_addresses = var.sip_allowed_ip
+    }
   }
 
   outbound_rule {

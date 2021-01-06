@@ -8,14 +8,14 @@
 
 
   module "vpc" {
-  source      = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
-  #source      = "../../digitalocean-terraform-modules/vpc"
-  name        = var.name
-  tenant             = var.tenant
-  environment        = var.environment
-  enable_vpc  = true
-  region      = var.region
-  ip_ragne    = var.vpc_cidr
+  source              = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
+  #source       = "../../digitalocean-terraform-modules/vpc"
+  name                = var.name
+  tenant              = var.tenant
+  environment         = var.environment
+  enable_vpc          = true
+  region              = var.region
+  ip_range            = var.vpc_cidr
   }
 
   module "droplet_rtpengine" {

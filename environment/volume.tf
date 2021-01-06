@@ -6,7 +6,7 @@ resource "digitalocean_volume" "recordings" {
   description             = "recordings"
 }
 
-resource "digitalocean_volume_attachment" "foobar" {
+resource "digitalocean_volume_attachment" "omlapp_rec" {
   droplet_id = module.droplet_omlapp.id[0]
   volume_id  = digitalocean_volume.recordings.id
 }
