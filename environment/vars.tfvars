@@ -5,7 +5,7 @@ region = "sfo2"
 vpc_cidr = "172.16.16.0/20"
 app = "omlapp"
 # Environment tag
-environment = "develop"
+environment = "staging"
 # SSH id (take this value from web: Account-Settings-Security)
 ssh_id = "77:4e:2e:df:2c:9c:42:78:28:a3:e4:49:9f:4f:e6:07"
 # Your domain name
@@ -21,8 +21,10 @@ droplet_dialer_size = "s-1vcpu-1gb"
 redis_size = "db-s-1vcpu-1gb"
 # PGSQL component cluster size
 pgsql_size = "db-s-1vcpu-1gb"
-# Disk size for OML call recording
+# Disk size GB for OML call recording
 disk_recording_size = 5
+# RamDisk size MB for OML call recording
+recording_ramdisk_size = 200
 
 # CentOS-7 image
 img_centos = "centos-7-x64"
@@ -30,15 +32,16 @@ img_centos = "centos-7-x64"
 img_ubuntu = "ubuntu-18-04-x64"
 
 # change "tenant" by customer name
-name = "fts"
-tenant = "fts"
-name_rtpengine = "fts-rtp"
-name_pgsql = "fts-pgsql"
-name_redis = "fts-redis"
-name_mariadb = "fts-mariadb"
-name_wombat = "fts-wombat"
-name_omlapp = "fts-omlapp"
-name_lb = "fts-lb"
+name = "oml"
+tenant = "oml"
+name_rtpengine = "oml-rtp"
+name_pgsql = "oml-pgsql"
+name_redis = "oml-redis"
+name_mariadb = "oml-mariadb"
+name_wombat = "oml-wombat"
+name_omlapp = "oml-omlapp"
+name_lb = "oml-lb"
+name_nfs_recordings="oml-recordings"
 
 # Template to renderized and exec on 1st boot on rtpengine droplet
 user_data_rtp = "./../user_data/rtpengine.tpl"
@@ -55,13 +58,13 @@ sip_allowed_ip = ["190.19.150.8/32","201.216.190.201/32"]
 # Time Zone to apply on Django
 oml_tz = "America/Argentina/Cordoba"
 # OMLApp release to deploy
-oml_release = "pre-release-1.12.0"
+oml_release = "develop"
 # OMLapp droplet private NIC
 network_interface = "eth1"
 # OMLapp recording dir name
-recording_device = "fts"
+recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "fts.omnileads.cloud"
+omlapp_hostname = "oml.omnileads.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections

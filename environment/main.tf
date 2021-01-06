@@ -5,11 +5,11 @@
   #
   }
 
-
+#  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
+#  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
 
   module "vpc" {
   source              = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
-  #source       = "../../digitalocean-terraform-modules/vpc"
   name                = var.name
   tenant              = var.tenant
   environment         = var.environment
@@ -18,9 +18,11 @@
   ip_range            = var.vpc_cidr
   }
 
+#  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet
+#  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet
+
   module "droplet_rtpengine" {
   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-  #source      = "../../digitalocean-terraform-modules/droplet"
   image_name         = var.img_centos
   name               = var.name_rtpengine
   tenant             = var.tenant
@@ -37,10 +39,11 @@
   })
   }
 
+#  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet
+#  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet
 
   module "pgsql"  {
    source        = "github.com/psychedelicto/digitalocean-terraform-modules/db"
-   #source      = "../../digitalocean-terraform-modules/db"
    name          = var.name_pgsql
    tenant        = var.tenant
    environment   = var.environment
@@ -51,29 +54,67 @@
    vpc_id        = module.vpc.id
   }
 
+#  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet
+#  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet
 
   module "droplet_redis"  {
-   source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   #source      = "../../digitalocean-terraform-modules/droplet"
-   image_name         = var.img_ubuntu
-   name               = var.name_redis
-   tenant             = var.tenant
-   environment        = var.environment
-   region             = var.region
-   ssh_keys           = [var.ssh_id]
-   vpc_uuid           = module.vpc.id
-   droplet_size       = var.droplet_rtp_size
-   monitoring         = false
-   private_networking = true
-   ipv6               = false
-   user_data          = templatefile("../user_data/redis.tpl", {
+    source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+    image_name         = var.img_ubuntu
+    name               = var.name_redis
+    tenant             = var.tenant
+    environment        = var.environment
+    region             = var.region
+    ssh_keys           = [var.ssh_id]
+    vpc_uuid           = module.vpc.id
+    droplet_size       = var.droplet_rtp_size
+    monitoring         = false
+    private_networking = true
+    ipv6               = false
+    user_data          = templatefile("../user_data/redis.tpl", {
    })
 
   }
 
+#  NFS componenet #  NFS componenet #  NFS componenet #  NFS componenet #  NFS componenet
+#  NFS componenet #  NFS componenet #  NFS componenet #  NFS componenet #  NFS componenet
+
+  resource "digitalocean_volume" "recordings" {
+    region                  = var.region
+    name                    = var.recording_device
+    size                    = var.disk_recording_size
+    initial_filesystem_type = "ext4"
+    description             = "recordings"
+  }
+
+  module "droplet_recordings"  {
+    source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+    image_name         = var.img_ubuntu
+    name               = var.name_nfs_recordings
+    tenant             = var.tenant
+    environment        = var.environment
+    region             = var.region
+    ssh_keys           = [var.ssh_id]
+    vpc_uuid           = module.vpc.id
+    droplet_size       = var.droplet_rtp_size
+    monitoring         = false
+    private_networking = true
+    ipv6               = false
+    user_data          = templatefile("../user_data/nfs_recordings.tpl", {
+      dev_name           = var.recording_device
+      nfs_clients        = var.vpc_cidr
+      })
+  }
+
+  resource "digitalocean_volume_attachment" "nfs_recordings" {
+    droplet_id = module.droplet_recordings.id[0]
+    volume_id  = digitalocean_volume.recordings.id
+  }
+
+#  MARIADB componenet #  MARIADB componenet #  MARIADB componenet #  MARIADB componenet #  MARIADB componenet
+#  MARIADB componenet #  MARIADB componenet #  MARIADB componenet #  MARIADB componenet #  MARIADB componenet
+
   module "droplet_mariadb"  {
    source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   #source            = "../../digitalocean-terraform-modules/droplet"
    image_name         = var.img_centos
    name               = var.name_mariadb
    tenant             = var.tenant
@@ -92,9 +133,11 @@
 
    }
 
+#  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet
+#  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet
+
   module "droplet_wombat"  {
    source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-   #source            = "../../digitalocean-terraform-modules/droplet"
    image_name         = var.img_centos
    name               = var.name_wombat
    tenant             = var.tenant
@@ -115,9 +158,11 @@
   }
 
 
+#  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet
+#  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet
+
   module "droplet_omlapp" {
   source                      = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-  #source            = "../../digitalocean-terraform-modules/droplet"
   image_name                  = var.img_centos
   name                        = var.name_omlapp
   tenant                      = var.tenant
@@ -159,10 +204,14 @@
     schedule                      = var.schedule
     extern_ip                     = var.extern_ip
     TZ                            = var.oml_tz
-    recording_device              = var.recording_device
+    nfs_recordings_ip             = module.droplet_recordings.ipv4_address_private
+    recording_ramdisk_size        = var.recording_ramdisk_size
   })
   }
 
+
+#  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
+#  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 
 resource "digitalocean_certificate" "omlcert" {
   name                        = var.omlapp_hostname
@@ -172,7 +221,6 @@ resource "digitalocean_certificate" "omlcert" {
 
 module "lb" {
   source                      = "github.com/psychedelicto/digitalocean-terraform-modules/loadbalancer"
-  #source                     = "../../digitalocean-terraform-modules/loadbalancer"
   name                        = var.name_lb
   tenant                      = var.tenant
   environment                 = var.environment
@@ -187,6 +235,6 @@ module "lb" {
 resource "digitalocean_record" "omlapp_lb" {
   domain                      = var.domain_name
   type                        = "A"
-  name                        = var.name_omlapp
+  name                        = var.omlapp_hostname
   value                       = module.lb.lb_ip
 }

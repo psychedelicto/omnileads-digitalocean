@@ -14,6 +14,7 @@ variable "name_mariadb" {}
 variable "name_wombat" {}
 variable "name_omlapp" {}
 variable "name_lb" {}
+variable "name_nfs_recordings" {}
 
 variable "app" {}
 variable "ssh_id" {}
@@ -23,6 +24,7 @@ variable "droplet_dialer_size" {}
 variable "pgsql_size" {}
 variable "redis_size" {}
 variable "disk_recording_size" {}
+variable "recording_ramdisk_size" {}
 variable "img_centos" {}
 variable "img_ubuntu" {}
 
