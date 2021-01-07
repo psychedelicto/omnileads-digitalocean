@@ -1,14 +1,21 @@
 #!/bin/bash
 
+HOST_DIR=/opt/omnileads/asterisk/var/spool/asterisk/monitor
+
 yum update -y
-yum install git -y
+yum install git nfs-utils -y
 
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
-echo "${omlapp_hostname}" > /etc/hostname
+hostnamectl set-hostname "${omlapp_hostname}"
+
+#echo "******************** fix hostname and localhost ***************************"
+#echo "******************** fix hostname and localhost ***************************"
+#sed -i 's/127.0.0.1 '${omlapp_hostname}'/#127.0.0.1 '${omlapp_hostname}'/' /etc/hosts
+#sed -i 's/::1 '${omlapp_hostname}'/#::1 '${omlapp_hostname}'/' /etc/hosts
 
 echo "clonando el repositorio  de omnileads"
 cd /var/tmp
@@ -52,13 +59,10 @@ fi
 echo "digitalocean requiere SSL to connect PGSQL"
 echo "SSLMode       = require" >> /etc/odbc.ini
 
+echo "**[omniapp] NFS fstab"
+echo ""${nfs_recordings_ip}":$HOST_DIR    $HOST_DIR   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" >> /etc/fstab
 
-echo "******************** link to recordings device ***************************"
-echo "******************** link to recordings device ***************************"
-rm -rf /opt/omnileads/asterisk/var/spool/asterisk/monitor
-chown  omnileads.omnileads -R /mnt/"${recording_device}"
-ln -s /mnt/"${recording_device}"/ /opt/omnileads/asterisk/var/spool/asterisk/monitor
-chown omnileads.omnileads -R /opt/omnileads/asterisk/var/spool/
+chown  omnileads.omnileads -R $HOST_DIR
 
 echo "**[omniapp] Instalando sngrep"
 yum install ncurses-devel make libpcap-devel pcre-devel \
@@ -66,5 +70,55 @@ yum install ncurses-devel make libpcap-devel pcre-devel \
 cd /root && git clone https://github.com/irontec/sngrep
 cd sngrep && ./bootstrap.sh && ./configure && make && make install
 ln -s /usr/local/bin/sngrep /usr/bin/sngrep
+
+echo "**[asterisk] Pasos para grabaciones en RAMdisk"
+echo "**[asterisk] Pasos para grabaciones en RAMdisk"
+echo "**[asterisk] Pasos para grabaciones en RAMdisk"
+
+echo "**[asterisk] Primero: editar el fstab"
+echo "tmpfs       /mnt/ramdisk tmpfs   nodev,nosuid,noexec,nodiratime,size=${recording_ramdisk_size}M   0 0" >> /etc/fstab
+
+echo "**[asterisk] Segundo, creando punto de montaje y montandolo"
+mkdir /mnt/ramdisk
+mount -t tmpfs -o size=${recording_ramdisk_size}M tmpfs /mnt/ramdisk
+
+echo "**[asterisk] Segundo: creando script de movimiento de archivos"
+cat > /opt/omnileads/bin/mover_audios.sh <<'EOF'
+#!/bin/bash
+
+# RAMDISK Watcher
+#
+# Revisa el contenido del ram0 y lo pasa a disco duro
+## Variables
+
+Ano=$(date +%Y -d today)
+Mes=$(date +%m -d today)
+Dia=$(date +%d -d today)
+LSOF="/sbin/lsof"
+RMDIR="/mnt/ramdisk"
+ALMACEN="/opt/omnileads/asterisk/var/spool/asterisk/monitor/$Ano-$Mes-$Dia"
+
+if [ ! -d $ALMACEN ]; then
+  mkdir -p $ALMACEN;
+fi
+
+for i in $(ls $RMDIR/$Ano-$Mes-$Dia/*.wav) ; do
+  $LSOF $i &> /dev/null
+  valor=$?
+  if [ $valor -ne 0 ] ; then
+    mv $i $ALMACEN
+  fi
+done
+EOF
+
+echo "**[asterisk] Seteando ownership de archivos"
+chown -R omnileads.omnileads /mnt/ramdisk /opt/omnileads/bin/mover_audios.sh
+chmod +x /opt/omnileads/bin/mover_audios.sh
+
+echo "**[asterisk] Tercero: seteando el cron para el movimiento de grabaciones"
+cat > /etc/cron.d/MoverGrabaciones <<EOF
+ */1 * * * * omnileads /opt/omnileads/bin/mover_audios.sh
+EOF
+
 
 reboot
