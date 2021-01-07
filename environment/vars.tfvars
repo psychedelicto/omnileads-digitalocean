@@ -32,16 +32,16 @@ img_centos = "centos-7-x64"
 img_ubuntu = "ubuntu-18-04-x64"
 
 # change "tenant" by customer name
-name = "oml"
-tenant = "oml"
-name_rtpengine = "oml-rtp"
-name_pgsql = "oml-pgsql"
-name_redis = "oml-redis"
-name_mariadb = "oml-mariadb"
-name_wombat = "oml-wombat"
-name_omlapp = "oml-omlapp"
-name_lb = "oml-lb"
-name_nfs_recordings="oml-recordings"
+name = "mcrespo"
+tenant = "mcrespo"
+name_rtpengine = "mcrespo-rtp"
+name_pgsql = "mcrespo-pgsql"
+name_redis = "mcrespo-redis"
+name_mariadb = "mcrespo-mariadb"
+name_wombat = "mcrespo-wombat"
+name_omlapp = "mcrespo-omlapp"
+name_lb = "mcrespo-lb"
+name_nfs_recordings="mcrespo-recordings"
 
 # Template to renderized and exec on 1st boot on rtpengine droplet
 user_data_rtp = "./../user_data/rtpengine.tpl"
@@ -64,7 +64,7 @@ network_interface = "eth1"
 # OMLapp recording dir name
 recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "oml.omnileads.cloud"
+omlapp_hostname = "mcrespo-omlapp.omnileads.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
