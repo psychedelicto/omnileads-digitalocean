@@ -30,9 +30,6 @@ variable "img_ubuntu" {}
 
 # App # App # App
 
-variable "user_data_rtp" {}
-variable "user_data_omlapp" {}
-
 variable "sip_allowed_ip" {
   type    = list(string)
 }
@@ -48,13 +45,19 @@ variable "ami_user" {}
 variable "ami_password" {}
 variable "dialer_user" {}
 variable "dialer_password" {}
-variable "ecctl" {}
 variable "pg_database" {}
 variable "pg_username" {}
 variable "pg_password" {}
 variable "sca" {}
-variable "schedule" {}
-variable "extern_ip" {}
+variable "ecctl" {
+  default = "28800"
+}
+variable "schedule" {
+  default = "agenda"
+}
+variable "extern_ip" {
+  default = "none"
+}
 
 
 # Wombat dialer

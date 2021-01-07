@@ -15,8 +15,6 @@
   monitoring                  = false
   private_networking          = true
   ipv6                        = false
-  # floating_ip        = false
-  # block_storage_size = var.disk_size
   user_data                   = templatefile("../user_data/omlapp.tpl", {
     NIC                           = var.network_interface
     omlapp_hostname               = var.omlapp_hostname
