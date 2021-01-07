@@ -1,8 +1,4 @@
 
-  provider "digitalocean" {
-  # export DIGITALOCEAN_TOKEN="Your API TOKEN"
-  }
-
 #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
 #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
 
