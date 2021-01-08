@@ -125,7 +125,7 @@ chmod +x /opt/omnileads/bin/mover_audios.sh
 
 echo "****************************** mount NFS for asign omnileads owner ************************************"
 echo "****************************** mount NFS for asign omnileads owner ************************************"
-mount -o defaults,nofail,discard,noatime ${nfs_recordings_ip}":$HOST_DIR $HOST_DIR
+mount -t nfs "${nfs_recordings_ip}":$HOST_DIR $HOST_DIR
 chown omnileads.omnileads -R $HOST_DIR
 
 echo "******************************** [asterisk] Tercero: seteando el cron para el movimiento de grabaciones *************************************************"
