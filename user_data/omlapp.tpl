@@ -2,11 +2,14 @@
 
 HOST_DIR=/opt/omnileads/asterisk/var/spool/asterisk/monitor
 
-yum update -y
-yum install git nfs-utils -y
-
+setenforce 0
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+
+yum update -y && yum install git nfs-utils python3-pip python3-devel -y
+
+pip3 install --upgrade pip
+pip3 install --user 'ansible==2.9.2'
 
 PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
@@ -24,7 +27,7 @@ git clone https://gitlab.com/omnileads/ominicontacto.git
 cd ominicontacto && git checkout ${omnileads_release}
 
 echo "inventory setting"
-python deploy/vagrant/edit_inventory.py --self_hosted=yes \
+python ansible/deploy/edit_inventory.py --self_hosted=yes \
 --ami_user=${ami_user} \
 --ami_password=${ami_password} \
 --dialer_user=${dialer_user} \
@@ -49,7 +52,7 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
 sleep 5
 
 echo "deploy.sh execution"
-cd deploy/ansible && ./deploy.sh -i --iface=${NIC}
+cd ansible/deploy && ./deploy.sh -i --iface=${NIC}
 sleep 5
 if [ -d /usr/local/queuemetrics/ ]; then
   systemctl stop qm-tomcat6 && systemctl disable qm-tomcat6
