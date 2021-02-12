@@ -38,21 +38,21 @@ recording_ramdisk_size = 200
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
 # change "customer" by customer name
-name = "konecta"
-tenant = "konecta"
-name_rtpengine = "konecta-rtp"
-name_pgsql = "konecta-pgsql"
-name_redis = "konecta-redis"
-name_mariadb = "konecta-mariadb"
-name_wombat = "konecta-wombat"
-name_omlapp = "konecta-omlapp"
-name_lb = "konecta-lb"
-name_nfs_recordings="konecta-recordings"
+name = "customer"
+tenant = "customer"
+name_rtpengine = "customer-rtp"
+name_pgsql = "customer-pgsql"
+name_redis = "customer-redis"
+name_mariadb = "customer-mariadb"
+name_wombat = "customer-wombat"
+name_omlapp = "customer-omlapp"
+name_lb = "customer-lb"
+name_nfs_recordings="customer-recordings"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 # OMLApp release to deploy
-oml_release = "oml-110-issue-falla-install-python3devel-pgsql-afuera"
+oml_release = "pre-release-1.13.0"
 # Asterisk SIP Trunks allowed ips
 sip_allowed_ip = ["142.93.27.10/32"]
 # Time Zone to apply on Django
@@ -62,7 +62,7 @@ network_interface = "eth1"
 # OMLapp recording dir name
 recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "konecta-omlapp.sefirot.cloud"
+omlapp_hostname = "customer-omlapp.sefirot.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
