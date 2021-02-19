@@ -2,7 +2,7 @@
 #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet
 
   module "droplet_redis"  {
-    source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+    source             = "github.com/psychedelicto/oml-redis/deploy/digitalocean/infra/"
     image_name         = var.img_ubuntu
     name               = var.name_redis
     tenant             = var.tenant
@@ -14,18 +14,17 @@
     monitoring         = false
     private_networking = true
     ipv6               = false
-    user_data          = templatefile("../user_data/redis.tpl", {
+    user_data          = templatefile("./.terraform/modules/droplet_redis/deploy/digitalocean/cloud-init/user_data.sh", {
    })
   }
 
   # Firewall aplicado al cluster REDIS # Firewall aplicado al cluster REDIS
   # Firewall aplicado al cluster REDIS # Firewall aplicado al cluster REDIS
-
+  
   resource "digitalocean_firewall" "fw_redis" {
     name = var.name_redis
 
-    droplet_ids = [module.droplet_wombat.id[0]]
-
+    droplet_ids = [module.droplet_redis.id[0]]
 
 
     inbound_rule {

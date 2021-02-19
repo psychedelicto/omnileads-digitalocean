@@ -52,7 +52,7 @@ name_nfs_recordings="customer-recordings"
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 # OMLApp release to deploy
-oml_release = "pre-release-1.13.0"
+oml_release = "release-1.13.0"
 # Asterisk SIP Trunks allowed ips
 sip_allowed_ip = ["142.93.27.10/32"]
 # Time Zone to apply on Django
