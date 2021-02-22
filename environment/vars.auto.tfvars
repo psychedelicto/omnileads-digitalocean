@@ -16,6 +16,10 @@ img_centos = "centos-7-x64"
 # Ubuntu Server image
 img_ubuntu = "ubuntu-18-04-x64"
 
+
+spaces_key = "A6SLI4WGFIKN2XPF52QA"
+spaces_secret_key = "SY2CXtszQztoymzM3rDuAdCCfTjWx4Ah2p1F4aGLvB0"
+
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 

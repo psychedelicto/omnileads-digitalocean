@@ -11,8 +11,8 @@ variable "environment" {}
 # variable "aws_s3_region" {}
 # variable "spaces_bucket_name" {}
 # variable "tfstate_filename" {}
-# variable "spaces_key" {}
-# variable "spaces_secret_key" {}
+variable "spaces_key" {}
+variable "spaces_secret_key" {}
 
 variable "name_rtpengine" {}
 variable "name_pgsql" {}

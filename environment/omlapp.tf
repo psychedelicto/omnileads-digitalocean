@@ -44,7 +44,9 @@
     schedule                      = var.schedule
     extern_ip                     = var.extern_ip
     TZ                            = var.oml_tz
-    nfs_recordings_ip             = module.droplet_recordings.ipv4_address_private
+    spaces_key                    = var.spaces_key
+    spaces_secret_key             = var.spaces_secret_key
+    spaces_bucket_name            = digitalocean_spaces_bucket.tenant.name
     recording_ramdisk_size        = var.recording_ramdisk_size
   })
   }
