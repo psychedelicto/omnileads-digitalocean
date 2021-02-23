@@ -28,9 +28,8 @@ variable "ssh_id" {}
 variable "droplet_oml_size" {}
 variable "droplet_rtp_size" {}
 variable "droplet_dialer_size" {}
+variable "droplet_redis_size" {}
 variable "pgsql_size" {}
-variable "redis_size" {}
-variable "disk_recording_size" {}
 variable "recording_ramdisk_size" {}
 variable "img_centos" {}
 variable "img_ubuntu" {}

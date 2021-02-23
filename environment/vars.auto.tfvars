@@ -27,14 +27,12 @@ spaces_secret_key = "SY2CXtszQztoymzM3rDuAdCCfTjWx4Ah2p1F4aGLvB0"
 droplet_oml_size = "s-1vcpu-1gb"
 # RTPengine componenet droplet size
 droplet_rtp_size = "s-1vcpu-1gb"
+# REDIS component droplet size
+droplet_redis_size = "s-1vcpu-1gb"
 # Wombat dialer component droplet size
 droplet_dialer_size = "s-1vcpu-1gb"
-# REDIS component droplet size
-redis_size = "db-s-1vcpu-1gb"
-# PGSQL component cluster size
+# PGSQL component digitalocean-cluster size
 pgsql_size = "db-s-1vcpu-1gb"
-# Disk size GB for OML call recording
-disk_recording_size = 10
 # RamDisk size MB for OML call recording
 recording_ramdisk_size = 200
 

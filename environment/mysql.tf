@@ -15,8 +15,8 @@
    private_networking = true
    ipv6               = false
    user_data          = templatefile("./.terraform/modules/droplet_mariadb/deploy/digitalocean/cloud-init/user_data.tpl", {
-     mysql_username            = "wombat"
-     mysql_password            = "admin123"
+     mysql_username            = var.wombat_database_username
+     mysql_password            = var.wombat_database_password
      })
    }
 
