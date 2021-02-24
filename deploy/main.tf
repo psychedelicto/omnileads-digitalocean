@@ -12,11 +12,11 @@
   ip_range                    = var.vpc_cidr
   }
 
-  resource "digitalocean_spaces_bucket" "tenant" {
-  name   = var.tenant
-  region = var.region
-  }
-  
+  # resource "digitalocean_spaces_bucket" "tenant" {
+  #   name   = var.tenant
+  #   region = var.region
+  # }
+
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 

@@ -2,8 +2,8 @@
 #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet
 
   module "droplet_redis"  {
-    source             = "github.com/psychedelicto/oml-redis/deploy/digitalocean/infra/"
-    image_name         = var.img_ubuntu
+    source             = "../modules/droplet"
+    image_name         = var.img_docker
     name               = var.name_redis
     tenant             = var.tenant
     environment        = var.environment
@@ -14,13 +14,13 @@
     monitoring         = false
     private_networking = true
     ipv6               = false
-    user_data          = templatefile("./.terraform/modules/droplet_redis/deploy/digitalocean/cloud-init/user_data.sh", {
+    user_data          = templatefile("./templates/redis.sh", {
    })
   }
 
   # Firewall aplicado al cluster REDIS # Firewall aplicado al cluster REDIS
   # Firewall aplicado al cluster REDIS # Firewall aplicado al cluster REDIS
-  
+
   resource "digitalocean_firewall" "fw_redis" {
     name = var.name_redis
 

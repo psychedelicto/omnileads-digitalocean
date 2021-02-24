@@ -6,6 +6,7 @@ variable "domain_name" {}
 variable "name" {}
 variable "tenant" {}
 variable "environment" {}
+variable "spaces_bucket_name" {}
 
 # variable "spaces_endpooint" {}
 # variable "aws_s3_region" {}
@@ -33,7 +34,7 @@ variable "pgsql_size" {}
 variable "recording_ramdisk_size" {}
 variable "img_centos" {}
 variable "img_ubuntu" {}
-
+variable "img_docker" {}
 # App # App # App
 
 variable "sip_allowed_ip" {
@@ -70,3 +71,9 @@ variable "extern_ip" {
 variable "wombat_database" {}
 variable "wombat_database_username" {}
 variable "wombat_database_password" {}
+
+
+variable "droplet_module" {}
+variable "pgsql_cluster_module" {}
+variable "vpc_module" {}
+variable "lb_module" {}

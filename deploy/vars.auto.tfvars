@@ -15,10 +15,12 @@ domain_name = "sefirot.cloud"
 img_centos = "centos-7-x64"
 # Ubuntu Server image
 img_ubuntu = "ubuntu-18-04-x64"
-
+# Docker image
+img_docker = "docker-20-04"
 
 spaces_key = "A6SLI4WGFIKN2XPF52QA"
 spaces_secret_key = "SY2CXtszQztoymzM3rDuAdCCfTjWx4Ah2p1F4aGLvB0"
+spaces_bucket_name = "omnileads"
 
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
@@ -40,16 +42,16 @@ recording_ramdisk_size = 200
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
 # change "customer" by customer name
-name = "customer"
-tenant = "customer"
-name_rtpengine = "customer-rtp"
-name_pgsql = "customer-pgsql"
-name_redis = "customer-redis"
-name_mariadb = "customer-mariadb"
-name_wombat = "customer-wombat"
-name_omlapp = "customer-omlapp"
-name_lb = "customer-lb"
-name_nfs_recordings="customer-recordings"
+name = "omnileads"
+tenant = "omnileads"
+name_rtpengine = "omnileads-rtp"
+name_pgsql = "omnileads-pgsql"
+name_redis = "omnileads-redis"
+name_mariadb = "omnileads-mariadb"
+name_wombat = "omnileads-wombat"
+name_omlapp = "omnileads-omlapp"
+name_lb = "omnileads-lb"
+name_nfs_recordings="omnileads-recordings"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
@@ -64,7 +66,7 @@ network_interface = "eth1"
 # OMLapp recording dir name
 recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "customer-omlapp.sefirot.cloud"
+omlapp_hostname = "omnileads-omlapp.sefirot.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
@@ -86,3 +88,14 @@ sca = "3600"
 wombat_database = "wombat"
 wombat_database_username = "wombat"
 wombat_database_password = "admin123"
+
+# redis_cloud_init = "./redis/user_data.tpl"
+# omlapp_cloud_init = "./redis/user_data.tpl"
+# dialer_cloud_init = "./redis/user_data.tpl"
+# mysql_cloud_init = "./redis/user_data.tpl"
+# kamailio_cloud_init = "./redis/user_data.tpl"
+
+droplet_module = "../modules/droplet"
+pgsql_cluster_module = "../modules/db"
+vpc_module = "../modules/vpc"
+lb_module = "../modules/loadbalancer"
