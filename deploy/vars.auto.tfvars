@@ -18,8 +18,8 @@ img_ubuntu = "ubuntu-18-04-x64"
 # Docker image
 img_docker = "docker-20-04"
 
-spaces_key = "A6SLI4WGFIKN2XPF52QA"
-spaces_secret_key = "SY2CXtszQztoymzM3rDuAdCCfTjWx4Ah2p1F4aGLvB0"
+spaces_key = "DFRVI4WGFIKN2XPF52QA"
+spaces_secret_key = "SEDVXtszQztoymzM3rDuAdCCfTjWx4Ah2p1F4aGLvB0"
 spaces_bucket_name = "omnileads"
 
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
@@ -42,16 +42,16 @@ recording_ramdisk_size = 200
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
 # change "customer" by customer name
-name = "jojma"
-tenant = "jojma"
-name_rtpengine = "jojma-rtp"
-name_pgsql = "jojma-pgsql"
-name_redis = "jojma-redis"
-name_mariadb = "jojma-mariadb"
-name_wombat = "jojma-wombat"
-name_omlapp = "jojma-omlapp"
-name_lb = "jojma-lb"
-name_nfs_recordings="jojma-recordings"
+name = "customer"
+tenant = "customer"
+name_rtpengine = "customer-rtp"
+name_pgsql = "customer-pgsql"
+name_redis = "customer-redis"
+name_mariadb = "customer-mariadb"
+name_wombat = "customer-wombat"
+name_omlapp = "customer-omlapp"
+name_lb = "customer-lb"
+name_nfs_recordings="customer-recordings"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
@@ -66,7 +66,7 @@ network_interface = "eth1"
 # OMLapp recording dir name
 recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "jojma-omlapp.sefirot.cloud"
+omlapp_hostname = "customer-omlapp.sefirot.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections

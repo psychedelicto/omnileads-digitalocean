@@ -11,7 +11,7 @@ terraform {
 # uncomment if you want to save tfstate on digitalocean spaces - S3
     backend "s3" {
       bucket                      = "omnileads" #Your tenant string identifier
-      key                         = "jojma-terraform.tfstate" #Your tenant tfstate string identifier
+      key                         = "customer-terraform.tfstate" #Your tenant tfstate string identifier
       region                      = "us-east-1" #AWS S3 region
       endpoint                    = "sfo3.digitaloceanspaces.com" #Your Spaces URL
       access_key                  = "A6SLI4WGFIKN2XPF52QA" #Your Spaces access key
