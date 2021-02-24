@@ -13,10 +13,10 @@
   }
 
   resource "digitalocean_spaces_bucket" "tenant" {
-  name   = var.tenant
-  region = var.region
+    name   = var.tenant
+    region = var.region
   }
-  
+
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 

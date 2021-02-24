@@ -2,7 +2,7 @@
 #  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet #  OMLAPP componenet
 
   module "droplet_omlapp" {
-  source                      = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
+  source                      = "../modules/droplet"
   image_name                  = var.img_centos
   name                        = var.name_omlapp
   tenant                      = var.tenant
@@ -17,7 +17,7 @@
   ipv6                        = false
   # floating_ip        = false
   # block_storage_size = var.disk_size
-  user_data                   = templatefile("../user_data/omlapp.tpl", {
+  user_data                   = templatefile("./templates/omlapp.tpl", {
     NIC                           = var.network_interface
     omlapp_hostname               = var.omlapp_hostname
     omnileads_release             = var.oml_release

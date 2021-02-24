@@ -11,7 +11,7 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 echo "******************** yum update and install packages ***************************"
 echo "******************** yum update and install packages ***************************"
-yum update -y && yum install git nfs-utils python3-pip python3-devel -y
+yum update -y && yum install git nfs-utils python3-pip -y
 
 echo "******************** install ansible ***************************"
 echo "******************** install ansible ***************************"
@@ -36,6 +36,10 @@ git clone https://gitlab.com/omnileads/ominicontacto.git
 echo "***************************** inventory setting *************************************"
 echo "***************************** inventory setting *************************************"
 cd ominicontacto && git checkout ${omnileads_release}
+# git submodule init
+# git submodule update
+# git submodule update --remote
+
 python ansible/deploy/edit_inventory.py --self_hosted=yes \
 --ami_user=${ami_user} \
 --ami_password=${ami_password} \
