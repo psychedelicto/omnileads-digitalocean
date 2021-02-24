@@ -150,3 +150,7 @@ variable "environment" {
   default     = ""
   description = "The environment tag"
 }
+
+variable "spaces_bucket_tenant" {
+  default = ""
+}

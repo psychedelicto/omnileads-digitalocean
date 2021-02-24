@@ -6,6 +6,7 @@ variable "domain_name" {}
 variable "name" {}
 variable "tenant" {}
 variable "environment" {}
+variable "spaces_bucket_name" {}
 
 # variable "spaces_endpooint" {}
 # variable "aws_s3_region" {}

@@ -83,7 +83,7 @@ echo "*********************** S3 recordings ********************************"
 yum install -y s3fs-fuse
 echo "${spaces_key}:${spaces_secret_key}" > ~/.passwd-s3fs
 chmod 600 ~/.passwd-s3fs
-echo "${spaces_bucket_name} $HOST_DIR   fuse.s3fs _netdev,allow_other,use_path_request_style,url=https://sfo3.digitaloceanspaces.com 0 0" >> /etc/fstab
+echo "${spaces_bucket_name}:/${spaces_bucket_tenant} $HOST_DIR   fuse.s3fs _netdev,allow_other,use_path_request_style,url=https://sfo3.digitaloceanspaces.com 0 0" >> /etc/fstab
 mount -a
 chown  omnileads.omnileads -R $HOST_DIR
 
@@ -106,7 +106,7 @@ echo "******** 2nd, mount RAMdisk on file system **************"
 mkdir /mnt/ramdisk
 mount -t tmpfs -o size=${recording_ramdisk_size}M tmpfs /mnt/ramdisk
 
-echo "******** 3rd: create to move rec from RAM to var-spool-asterisk-monitor ***********"
+echo "******** 3rd: create to move recordings script from RAM to var-spool-asterisk-monitor ***********"
 cat > /opt/omnileads/bin/mover_audios.sh <<'EOF'
 #!/bin/bash
 
@@ -139,10 +139,14 @@ echo "********* 4th: set permission and ownership on RAMdisk dir *********"
 chown -R omnileads.omnileads /mnt/ramdisk /opt/omnileads/bin/mover_audios.sh
 chmod +x /opt/omnileads/bin/mover_audios.sh
 
-echo "********* 5th: add cron-line to trigger the call-recording move script *******"
+echo "********* 5th: change asterisk recordings location to RAM mount disk *************"
+sed -i "s/OMLRECPATH=.*/OMLRECPATH=\/mnt\/ramdisk/" /opt/omnileads/asterisk/etc/asterisk/oml_extensions_globals.conf
+
+echo "********* 6th: add cron-line to trigger the call-recording move script *******"
 cat > /etc/cron.d/MoverGrabaciones <<EOF
  */1 * * * * omnileads /opt/omnileads/bin/mover_audios.sh
 EOF
+
 
 
 reboot

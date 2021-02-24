@@ -46,7 +46,8 @@
     TZ                            = var.oml_tz
     spaces_key                    = var.spaces_key
     spaces_secret_key             = var.spaces_secret_key
-    spaces_bucket_name            = digitalocean_spaces_bucket.tenant.name
+    spaces_bucket_name            = var.spaces_bucket_name
+    spaces_bucket_tenant          = var.tenant
     recording_ramdisk_size        = var.recording_ramdisk_size
   })
   }

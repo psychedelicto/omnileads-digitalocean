@@ -20,6 +20,7 @@ img_docker = "docker-20-04"
 
 spaces_key = "A6SLI4WGFIKN2XPF52QA"
 spaces_secret_key = "SY2CXtszQztoymzM3rDuAdCCfTjWx4Ah2p1F4aGLvB0"
+spaces_bucket_name = "omnileads"
 
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
@@ -41,16 +42,16 @@ recording_ramdisk_size = 200
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
 # change "customer" by customer name
-name = "sierra"
-tenant = "sierra"
-name_rtpengine = "sierra-rtp"
-name_pgsql = "sierra-pgsql"
-name_redis = "sierra-redis"
-name_mariadb = "sierra-mariadb"
-name_wombat = "sierra-wombat"
-name_omlapp = "sierra-omlapp"
-name_lb = "sierra-lb"
-name_nfs_recordings="sierra-recordings"
+name = "omnileads"
+tenant = "omnileads"
+name_rtpengine = "omnileads-rtp"
+name_pgsql = "omnileads-pgsql"
+name_redis = "omnileads-redis"
+name_mariadb = "omnileads-mariadb"
+name_wombat = "omnileads-wombat"
+name_omlapp = "omnileads-omlapp"
+name_lb = "omnileads-lb"
+name_nfs_recordings="omnileads-recordings"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
@@ -65,7 +66,7 @@ network_interface = "eth1"
 # OMLapp recording dir name
 recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "sierra-omlapp.sefirot.cloud"
+omlapp_hostname = "omnileads-omlapp.sefirot.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
