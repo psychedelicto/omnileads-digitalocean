@@ -3,7 +3,7 @@
 #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
 
   module "vpc" {
-  source                      = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
+  source                      = "../modules/vpc"
   name                        = var.name
   tenant                      = var.tenant
   environment                 = var.environment
@@ -11,11 +11,6 @@
   region                      = var.region
   ip_range                    = var.vpc_cidr
   }
-
-  # resource "digitalocean_spaces_bucket" "tenant" {
-  #   name   = var.tenant
-  #   region = var.region
-  # }
 
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
@@ -27,7 +22,7 @@ resource "digitalocean_certificate" "omlcert" {
 }
 
 module "lb" {
-  source                      = "github.com/psychedelicto/digitalocean-terraform-modules/loadbalancer"
+  source                      = "../modules/loadbalancer"
   name                        = var.name_lb
   tenant                      = var.tenant
   environment                 = var.environment

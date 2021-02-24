@@ -42,16 +42,16 @@ recording_ramdisk_size = 200
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
 # change "customer" by customer name
-name = "omnileads"
-tenant = "omnileads"
-name_rtpengine = "omnileads-rtp"
-name_pgsql = "omnileads-pgsql"
-name_redis = "omnileads-redis"
-name_mariadb = "omnileads-mariadb"
-name_wombat = "omnileads-wombat"
-name_omlapp = "omnileads-omlapp"
-name_lb = "omnileads-lb"
-name_nfs_recordings="omnileads-recordings"
+name = "jojma"
+tenant = "jojma"
+name_rtpengine = "jojma-rtp"
+name_pgsql = "jojma-pgsql"
+name_redis = "jojma-redis"
+name_mariadb = "jojma-mariadb"
+name_wombat = "jojma-wombat"
+name_omlapp = "jojma-omlapp"
+name_lb = "jojma-lb"
+name_nfs_recordings="jojma-recordings"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
@@ -66,7 +66,7 @@ network_interface = "eth1"
 # OMLapp recording dir name
 recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "omnileads-omlapp.sefirot.cloud"
+omlapp_hostname = "jojma-omlapp.sefirot.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
