@@ -2,7 +2,7 @@
 #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet
 
   module "droplet_redis"  {
-    source             = "../modules/droplet"
+    source             = "../../modules/droplet"
     image_name         = var.img_docker
     name               = var.name_redis
     tenant             = var.tenant
@@ -14,7 +14,7 @@
     monitoring         = false
     private_networking = true
     ipv6               = false
-    user_data          = templatefile("./templates/redis.sh", {
+    user_data          = templatefile("../../templates/redis.sh", {
    })
   }
 

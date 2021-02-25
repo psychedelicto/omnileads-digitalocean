@@ -1,5 +1,6 @@
-deploy/.terraform/
-deploy/.terraform/*
-deploy/terraform.tfstate
-deploy/terraform.tfstate.backup
-deploy/.terraform.lock.hcl
+environments/*/.terraform/
+environments/*/.terraform/*
+environments/*/terraform.tfstate.backup
+environments/*/terraform.tfstate
+environments/*/.terraform.lock.hcl
+.env
