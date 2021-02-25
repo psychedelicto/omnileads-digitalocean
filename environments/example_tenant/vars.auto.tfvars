@@ -1,9 +1,6 @@
-## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
+customer## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
 ## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
 
-# Region to deploy all
-region = "sfo3"
-vpc_cidr = "172.16.16.0/20"
 app = "omlapp"
 # Environment tag
 environment = "staging"
@@ -18,8 +15,6 @@ img_ubuntu = "ubuntu-18-04-x64"
 # Docker image
 img_docker = "docker-20-04"
 
-spaces_key = "DFRVI4WGFIKN2XPF52QA"
-spaces_secret_key = "SEDVXtszQztoymzM3rDuAdCCfTjWx4Ah2p1F4aGLvB0"
 spaces_bucket_name = "omnileads"
 
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
