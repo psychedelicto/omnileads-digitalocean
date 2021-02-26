@@ -3,7 +3,7 @@
 #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet
 
   module "pgsql"  {
-   source        = "../modules/db"
+   source        = "../../modules/db"
    name          = var.name_pgsql
    tenant        = var.tenant
    environment   = var.environment
