@@ -46,7 +46,6 @@ name_mariadb = "customer-name-mariadb"
 name_wombat = "customer-name-wombat"
 name_omlapp = "customer-name-omlapp"
 name_lb = "customer-name-lb"
-name_nfs_recordings="customer-name-recordings"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars

@@ -22,7 +22,6 @@ variable "name_mariadb" {}
 variable "name_wombat" {}
 variable "name_omlapp" {}
 variable "name_lb" {}
-variable "name_nfs_recordings" {}
 
 variable "app" {}
 variable "ssh_id" {}
