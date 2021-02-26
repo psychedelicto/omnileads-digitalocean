@@ -17,4 +17,4 @@ destroy:
 	rm -rf environments/$(ENV)
 
 init:
-	utils/env_setup.sh prepare_deploy_links $(ENV) $(DIALER)
+	utils/env_setup.sh prepare_deploy_links $(ENV) $(TYPE)
