@@ -1,7 +1,7 @@
 # infra
 
 variable "region" {}
-variable "vpc_cidr" {}
+# variable "vpc_cidr" {}
 variable "domain_name" {}
 variable "name" {}
 variable "tenant" {}
