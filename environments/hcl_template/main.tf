@@ -9,7 +9,7 @@
   environment                 = var.environment
   enable_vpc                  = true
   region                      = var.region
-  ip_range                    = var.vpc_cidr
+  #ip_range                    = var.vpc_cidr
   }
 
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
