@@ -19,6 +19,7 @@ pip3 install --upgrade pip
 pip3 install --user 'ansible==2.9.2'
 
 
+
 echo "******************** fix hostname and localhost issue on digitalocean ***************************"
 echo "******************** fix hostname and localhost issue on digitalocean ***************************"
 hostnamectl set-hostname "${omlapp_hostname}"
@@ -39,67 +40,19 @@ cd ominicontacto && git checkout ${omnileads_release}
 # git submodule update
 # git submodule update --remote
 
-if [ "${deploy_type}" == "aio" ]; then
-  python ansible/deploy/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --ecctl=${ecctl} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --extern_ip=${extern_ip} \
-  --TZ=${TZ}
-elif [ "${deploy_type}" == "cluster" ]; then
-  python ansible/deploy/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --ecctl=${ecctl} \
-  --postgres_host=${pg_host} \
-  --postgres_port=${pg_port} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
-  --redis_host=${redis_host} \
-  --rtpengine_host=${rtpengine_host} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --extern_ip=${extern_ip} \
-  --TZ=${TZ}
-elif [ "${deploy_type}" == "cluster_dialer" ]; then
-  python ansible/deploy/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --dialer_host=${dialer_host} \
-  --mysql_host=${mysql_host} \
-  --ecctl=${ecctl} \
-  --postgres_host=${pg_host} \
-  --postgres_port=${pg_port} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
-  --redis_host=${redis_host} \
-  --rtpengine_host=${rtpengine_host} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --extern_ip=${extern_ip} \
-  --TZ=${TZ}
-else
-  echo "******** ERROR you must to define the deploy type ERROR ********* "
-fi
+python ansible/deploy/edit_inventory.py --self_hosted=yes \
+--ami_user=${ami_user} \
+--ami_password=${ami_password} \
+--dialer_user=${dialer_user} \
+--dialer_password=${dialer_password} \
+--ecctl=${ecctl} \
+--postgres_database=${pg_database} \
+--postgres_user=${pg_username} \
+--postgres_password=${pg_password} \
+--sca=${sca} \
+--schedule=${schedule} \
+--extern_ip=${extern_ip} \
+--TZ=${TZ}
 
 sleep 2
 

@@ -1,0 +1,1 @@
+../hcl_template/redis.tf
