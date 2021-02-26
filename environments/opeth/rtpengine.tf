@@ -1,1 +1,0 @@
-../hcl_template/rtpengine.tf
