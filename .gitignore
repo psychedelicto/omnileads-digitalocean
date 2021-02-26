@@ -3,4 +3,5 @@ environments/*/.terraform/*
 environments/*/terraform.tfstate.backup
 environments/*/terraform.tfstate
 environments/*/.terraform.lock.hcl
+environments/.env
 .env

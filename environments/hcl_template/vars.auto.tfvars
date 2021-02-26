@@ -1,4 +1,4 @@
-customer## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
+## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
 ## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
 
 app = "omlapp"
@@ -37,16 +37,16 @@ recording_ramdisk_size = 200
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
 # change "customer" by customer name
-name = "customer"
-tenant = "customer"
-name_rtpengine = "customer-rtp"
-name_pgsql = "customer-pgsql"
-name_redis = "customer-redis"
-name_mariadb = "customer-mariadb"
-name_wombat = "customer-wombat"
-name_omlapp = "customer-omlapp"
-name_lb = "customer-lb"
-name_nfs_recordings="customer-recordings"
+name = "customer-name"
+tenant = "customer-name"
+name_rtpengine = "customer-name-rtp"
+name_pgsql = "customer-name-pgsql"
+name_redis = "customer-name-redis"
+name_mariadb = "customer-name-mariadb"
+name_wombat = "customer-name-wombat"
+name_omlapp = "customer-name-omlapp"
+name_lb = "customer-name-lb"
+name_nfs_recordings="customer-name-recordings"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
@@ -61,7 +61,7 @@ network_interface = "eth1"
 # OMLapp recording dir name
 recording_device = "oml"
 # OMLapp droplet hostname
-omlapp_hostname = "customer-omlapp.sefirot.cloud"
+omlapp_hostname = "customer-name-omlapp.sefirot.cloud"
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
@@ -83,14 +83,3 @@ sca = "3600"
 wombat_database = "wombat"
 wombat_database_username = "wombat"
 wombat_database_password = "admin123"
-
-# redis_cloud_init = "./redis/user_data.tpl"
-# omlapp_cloud_init = "./redis/user_data.tpl"
-# dialer_cloud_init = "./redis/user_data.tpl"
-# mysql_cloud_init = "./redis/user_data.tpl"
-# kamailio_cloud_init = "./redis/user_data.tpl"
-
-droplet_module = "../modules/droplet"
-pgsql_cluster_module = "../modules/db"
-vpc_module = "../modules/vpc"
-lb_module = "../modules/loadbalancer"

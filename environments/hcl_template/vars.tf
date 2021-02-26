@@ -71,9 +71,3 @@ variable "extern_ip" {
 variable "wombat_database" {}
 variable "wombat_database_username" {}
 variable "wombat_database_password" {}
-
-
-variable "droplet_module" {}
-variable "pgsql_cluster_module" {}
-variable "vpc_module" {}
-variable "lb_module" {}
