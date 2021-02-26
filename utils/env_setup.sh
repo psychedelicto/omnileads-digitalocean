@@ -44,6 +44,10 @@ prepare_deploy_links() {
   sed -i "s/customer-name/$environment/" ./vars.auto.tfvars
   sed -i "s/customer-name/$environment/" ./provider.tf
 
+  sed -i "s/spaces-key-id/$(echo $TF_VAR_spaces_key)/" ./provider.tf
+  sed -i "s/spaces-key-secret/$(echo $TF_VAR_spaces_secret_key)/" ./provider.tf
+
+
   sleep 5
   terraform init
 }
