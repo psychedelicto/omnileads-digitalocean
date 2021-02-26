@@ -5,11 +5,11 @@ variable "name" {
   description = "Name  (e.g. `app` or `cluster`)."
 }
 
-variable "ip_range" {
-  type        = string
-  default     = ""
-  description = "VPS CIDR for customer components"
-}
+# variable "ip_range" {
+#   type        = string
+#   default     = ""
+#   description = "VPS CIDR for customer components"
+# }
 
 variable "enable_vpc" {
   type        = bool
