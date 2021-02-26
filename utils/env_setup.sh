@@ -14,7 +14,10 @@ prepare_deploy_links() {
   local environment=$1
   local type=$2
 
-  mkdir ${ENVS_DIR}/${environment}/
+  if [ ! -d ${ENVS_DIR}/${environment} ]; then
+    mkdir ${ENVS_DIR}/${environment}/
+  fi
+  undo_links ${environment}
   cd ${ENVS_DIR}/${environment}/
 
   cp ../hcl_template/vars.auto.tfvars ./
@@ -43,6 +46,14 @@ prepare_deploy_links() {
 
   sleep 5
   terraform init
+}
+
+undo_links() {
+  links=$(find ${ENVS_DIR}/${1} -type l -path "${ENVS_DIR}/${1}/.terraform/*" -prune -o -type l -print)
+  #echo $links
+  for file in ${links}; do
+    unlink ${file}
+  done
 }
 
 $@
