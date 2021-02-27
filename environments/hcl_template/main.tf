@@ -15,6 +15,11 @@
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 
+resource "digitalocean_ssh_key" "omnileads" {
+  name                        = "Terraform ssh key"
+  public_key                  = file("~/.ssh/digitalocean.pub")
+}
+
 resource "digitalocean_certificate" "omlcert" {
   name                        = var.omlapp_hostname
   type                        = "lets_encrypt"

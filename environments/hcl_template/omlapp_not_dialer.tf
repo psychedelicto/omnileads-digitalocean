@@ -9,7 +9,7 @@
   environment                 = var.environment
   # droplet_count      = var.droplet_count
   region                      = var.region
-  ssh_keys                    = [var.ssh_id]
+  ssh_keys                    = [digitalocean_ssh_key.omnileads.fingerprint]
   vpc_uuid                    = module.vpc.id
   droplet_size                = var.droplet_oml_size
   monitoring                  = false
@@ -81,7 +81,7 @@
       port_range          = "8080"
       source_addresses = ["0.0.0.0/0"]
     }
-    
+
     dynamic "inbound_rule" {
       iterator = sip_allowed_ip
       for_each = var.sip_allowed_ip
