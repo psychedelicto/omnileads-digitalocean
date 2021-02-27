@@ -17,7 +17,7 @@
 
 resource "digitalocean_ssh_key" "omnileads" {
   name                        = "Terraform ssh key"
-  public_key                  = file("~/.ssh/digitalocean.pub")
+  public_key                  = file(var.ssh_key_file)
 }
 
 resource "digitalocean_certificate" "omlcert" {

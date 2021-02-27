@@ -48,7 +48,7 @@
     spaces_bucket_tenant          = var.tenant
     recording_ramdisk_size        = var.recording_ramdisk_size
     deploy_type                   = "cluster_dialer"
-  })
+    })
   }
 
   # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
@@ -119,5 +119,5 @@
     outbound_rule {
     protocol              = "icmp"
     destination_addresses = ["0.0.0.0/0", "::/0"]
-  }
+    }
   }

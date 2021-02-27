@@ -8,10 +8,6 @@ variable "tenant" {}
 variable "environment" {}
 variable "spaces_bucket_name" {}
 
-# variable "spaces_endpooint" {}
-# variable "aws_s3_region" {}
-# variable "spaces_bucket_name" {}
-# variable "tfstate_filename" {}
 variable "spaces_key" {}
 variable "spaces_secret_key" {}
 
@@ -34,6 +30,9 @@ variable "recording_ramdisk_size" {}
 variable "img_centos" {}
 variable "img_ubuntu" {}
 variable "img_docker" {}
+variable "ssh_key_file" {
+  default = "~/.ssh/id_rsa.pub"
+}
 # App # App # App
 
 variable "sip_allowed_ip" {
@@ -45,7 +44,6 @@ variable "sip_allowed_ip" {
 variable "oml_tz" {}
 variable "oml_release" {}
 variable "network_interface" {}
-variable "recording_device" {}
 variable "omlapp_hostname" {}
 variable "ami_user" {}
 variable "ami_password" {}

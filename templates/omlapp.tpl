@@ -116,8 +116,8 @@ echo "***************************** digitalocean requiere SSL to connect PGSQL *
 echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
 echo "SSLMode       = require" >> /etc/odbc.ini
 
-echo "*********************** S3 recordings ********************************"
-echo "*********************** S3 recordings ********************************"
+echo "*********************** S3 call recordings ********************************"
+echo "*********************** S3 call recordings ********************************"
 yum install -y s3fs-fuse
 echo "${spaces_key}:${spaces_secret_key}" > ~/.passwd-s3fs
 chmod 600 ~/.passwd-s3fs

@@ -4,10 +4,10 @@
 app = "omlapp"
 # Environment tag
 environment = "staging"
-# SSH id (take this value from web: Account-Settings-Security)
-ssh_id = "50:2d:69:84:74:14:1e:e0:a3:70:13:c3:87:53:22:fa"
+# region
+region = "sfo3"
 # Your domain name
-domain_name = "sefirot.cloud"
+#domain_name = "sefirot.cloud"
 # CentOS-7 image
 img_centos = "centos-7-x64"
 # Ubuntu Server image
@@ -15,7 +15,7 @@ img_ubuntu = "ubuntu-18-04-x64"
 # Docker image
 img_docker = "docker-20-04"
 
-spaces_bucket_name = "omnileads"
+#spaces_bucket_name = "omnileads"
 
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
@@ -36,7 +36,9 @@ recording_ramdisk_size = 200
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
-# change "customer" by customer name
+# Don't change this variables !!!!
+# Don't change this variables !!!!
+# Don't change this variables !!!!
 name = "customer-name"
 tenant = "customer-name"
 name_rtpengine = "customer-name-rtp"
@@ -44,23 +46,23 @@ name_pgsql = "customer-name-pgsql"
 name_redis = "customer-name-redis"
 name_mariadb = "customer-name-mariadb"
 name_wombat = "customer-name-wombat"
-name_omlapp = "customer-name-omlapp"
 name_lb = "customer-name-lb"
+name_omlapp = "customer-name-omlapp"
+omlapp_hostname = "customer-name-omlapp.sefirot.cloud"
+# OMLapp droplet private NIC
+network_interface = "eth1"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
+
 # OMLApp release to deploy
-oml_release = "release-1.13.0"
+oml_release = "master"
 # Asterisk SIP Trunks allowed ips
 sip_allowed_ip = ["142.93.27.10/32"]
 # Time Zone to apply on Django
 oml_tz = "America/Argentina/Cordoba"
-# OMLapp droplet private NIC
-network_interface = "eth1"
-# OMLapp recording dir name
-recording_device = "oml"
-# OMLapp droplet hostname
-omlapp_hostname = "customer-name-omlapp.sefirot.cloud"
+
+
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
