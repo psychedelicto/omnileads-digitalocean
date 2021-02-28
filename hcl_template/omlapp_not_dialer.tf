@@ -36,6 +36,8 @@
     pg_default_password           = module.pgsql.database_password
     rtpengine_host                = module.droplet_rtpengine.ipv4_address_private
     redis_host                    = module.droplet_redis.ipv4_address_private
+    dialer_host                   = "relleno"
+    mysql_host                    = "relleno"
     sca                           = var.sca
     schedule                      = var.schedule
     extern_ip                     = var.extern_ip
