@@ -3,7 +3,7 @@
 #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
 
   module "vpc" {
-  source                      = "../../modules/vpc"
+  source                      = "../omnileads-digitalocean/modules/vpc"
   name                        = var.name
   tenant                      = var.tenant
   environment                 = var.environment
@@ -27,7 +27,7 @@ resource "digitalocean_certificate" "omlcert" {
 }
 
 module "lb" {
-  source                      = "../../modules/loadbalancer"
+  source                      = "../omnileads-digitalocean/modules/loadbalancer"
   name                        = var.name_lb
   tenant                      = var.tenant
   environment                 = var.environment

@@ -2,7 +2,7 @@
 #  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet #  RTPENGINE componenet
 
   module "droplet_rtpengine" {
-  source             = "../../modules/droplet"
+  source             = "../omnileads-digitalocean/modules/droplet"
   image_name         = var.img_centos
   name               = var.name_rtpengine
   tenant             = var.tenant
@@ -14,7 +14,7 @@
   droplet_size       = var.droplet_rtp_size
   monitoring         = false
   private_networking = true
-  user_data          = templatefile("../../templates/rtpengine.tpl", {
+  user_data          = templatefile("../omnileads-digitalocean/templates/rtpengine.tpl", {
   })
   }
 

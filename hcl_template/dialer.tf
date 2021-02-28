@@ -2,7 +2,7 @@
 #  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet
 
   module "droplet_wombat"  {
-   source             = "../../modules/droplet"
+   source             = "../omnileads-digitalocean/modules/droplet"
    image_name         = var.img_centos
    name               = var.name_wombat
    tenant             = var.tenant
@@ -14,7 +14,7 @@
    monitoring         = false
    private_networking = true
    ipv6               = false
-   user_data          = templatefile("../../templates/dialer.tpl", {
+   user_data          = templatefile("../omnileads-digitalocean/templates/dialer.tpl", {
      mysql_host                = module.droplet_mariadb.ipv4_address_private
      mysql_database            = var.wombat_database
      mysql_username            = var.wombat_database_username

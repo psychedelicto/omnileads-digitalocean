@@ -2,7 +2,7 @@
 #  MARIADB componenet #  MARIADB componenet #  MARIADB componenet #  MARIADB componenet #  MARIADB componenet
 
   module "droplet_mariadb"  {
-   source             = "../../modules/droplet"
+   source             = "../omnileads-digitalocean/modules/droplet"
    image_name         = var.img_centos
    name               = var.name_mariadb
    tenant             = var.tenant
@@ -14,7 +14,7 @@
    monitoring         = false
    private_networking = true
    ipv6               = false
-   user_data          = templatefile("../../templates/mysql.tpl", {
+   user_data          = templatefile("../omnileads-digitalocean/templates/mysql.tpl", {
      mysql_username            = var.wombat_database_username
      mysql_password            = var.wombat_database_password
      })
