@@ -7,16 +7,16 @@ TF_BIN ?= terraform
 all: init plan
 
 plan:
-	cd environments/$(ENV) && terraform plan
+	cd ../$(ENV) && terraform plan
 
 apply:
-	cd environments/$(ENV) && terraform apply
+	cd ../$(ENV) && terraform apply
 
 destroy:
-	cd environments/$(ENV) && terraform destroy
+	cd ../$(ENV) && terraform destroy
 
 init:
 	utils/env_setup.sh prepare_deploy_links $(ENV) $(TYPE)
 
 delete:
-	rm -rf environments/$(ENV)
+	rm -rf ../$(ENV)

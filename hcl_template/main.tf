@@ -3,7 +3,7 @@
 #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
 
   module "vpc" {
-  source                      = "../../modules/vpc"
+  source                      = "../omnileads-digitalocean/modules/vpc"
   name                        = var.name
   tenant                      = var.tenant
   environment                 = var.environment
@@ -15,10 +15,10 @@
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 
-resource "digitalocean_ssh_key" "omnileads" {
-  name                        = "Terraform ssh key"
-  public_key                  = file(var.ssh_key_file)
-}
+# resource "digitalocean_ssh_key" "omnileads" {
+#   name                        = "Terraform ssh key"
+#   public_key                  = file(var.ssh_key_file)
+# }
 
 resource "digitalocean_certificate" "omlcert" {
   name                        = var.omlapp_hostname
@@ -27,7 +27,7 @@ resource "digitalocean_certificate" "omlcert" {
 }
 
 module "lb" {
-  source                      = "../../modules/loadbalancer"
+  source                      = "../omnileads-digitalocean/modules/loadbalancer"
   name                        = var.name_lb
   tenant                      = var.tenant
   environment                 = var.environment
