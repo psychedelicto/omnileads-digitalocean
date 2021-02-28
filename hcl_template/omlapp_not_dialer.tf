@@ -17,7 +17,7 @@
   ipv6                        = false
   # floating_ip        = false
   # block_storage_size = var.disk_size
-  user_data                   = templatefile("../omnileads-digitalocean/templates/omlapp_not_dialer.tpl", {
+  user_data                   = templatefile("../omnileads-digitalocean/templates/omlapp.tpl", {
     NIC                           = var.network_interface
     omlapp_hostname               = var.omlapp_hostname
     omnileads_release             = var.oml_release
