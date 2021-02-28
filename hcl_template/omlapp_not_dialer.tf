@@ -9,7 +9,7 @@
   environment                 = var.environment
   # droplet_count      = var.droplet_count
   region                      = var.region
-  ssh_keys                    = [ssh_key_fingerprint]
+  ssh_keys                    = [var.ssh_key_fingerprint]
   vpc_uuid                    = module.vpc.id
   droplet_size                = var.droplet_oml_size
   monitoring                  = false

@@ -8,7 +8,7 @@
    tenant             = var.tenant
    environment        = var.environment
    region             = var.region
-   ssh_keys           = [ssh_key_fingerprint]
+   ssh_keys           = [var.ssh_key_fingerprint]
    vpc_uuid           = module.vpc.id
    droplet_size       = var.droplet_rtp_size
    monitoring         = false
