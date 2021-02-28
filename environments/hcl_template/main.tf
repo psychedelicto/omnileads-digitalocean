@@ -3,17 +3,22 @@
 #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet #  VPC componenet
 
   module "vpc" {
-  source              = "github.com/psychedelicto/digitalocean-terraform-modules/vpc"
-  name                = var.name
-  tenant              = var.tenant
-  environment         = var.environment
-  enable_vpc          = true
-  region              = var.region
-  ip_range            = var.vpc_cidr
+  source                      = "../../modules/vpc"
+  name                        = var.name
+  tenant                      = var.tenant
+  environment                 = var.environment
+  enable_vpc                  = true
+  region                      = var.region
+  #ip_range                    = var.vpc_cidr
   }
 
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
 #  LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet LOADBALANCER componenet
+
+resource "digitalocean_ssh_key" "omnileads" {
+  name                        = "Terraform ssh key"
+  public_key                  = file(var.ssh_key_file)
+}
 
 resource "digitalocean_certificate" "omlcert" {
   name                        = var.omlapp_hostname
@@ -22,7 +27,7 @@ resource "digitalocean_certificate" "omlcert" {
 }
 
 module "lb" {
-  source                      = "github.com/psychedelicto/digitalocean-terraform-modules/loadbalancer"
+  source                      = "../../modules/loadbalancer"
   name                        = var.name_lb
   tenant                      = var.tenant
   environment                 = var.environment

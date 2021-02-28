@@ -1,11 +1,15 @@
 # infra
 
 variable "region" {}
-variable "vpc_cidr" {}
+# variable "vpc_cidr" {}
 variable "domain_name" {}
 variable "name" {}
 variable "tenant" {}
 variable "environment" {}
+variable "spaces_bucket_name" {}
+
+variable "spaces_key" {}
+variable "spaces_secret_key" {}
 
 variable "name_rtpengine" {}
 variable "name_pgsql" {}
@@ -14,20 +18,21 @@ variable "name_mariadb" {}
 variable "name_wombat" {}
 variable "name_omlapp" {}
 variable "name_lb" {}
-variable "name_nfs_recordings" {}
 
 variable "app" {}
 variable "ssh_id" {}
 variable "droplet_oml_size" {}
 variable "droplet_rtp_size" {}
 variable "droplet_dialer_size" {}
+variable "droplet_redis_size" {}
 variable "pgsql_size" {}
-variable "redis_size" {}
-variable "disk_recording_size" {}
 variable "recording_ramdisk_size" {}
 variable "img_centos" {}
 variable "img_ubuntu" {}
-
+variable "img_docker" {}
+variable "ssh_key_file" {
+  default = "~/.ssh/id_rsa.pub"
+}
 # App # App # App
 
 variable "sip_allowed_ip" {
@@ -39,7 +44,6 @@ variable "sip_allowed_ip" {
 variable "oml_tz" {}
 variable "oml_release" {}
 variable "network_interface" {}
-variable "recording_device" {}
 variable "omlapp_hostname" {}
 variable "ami_user" {}
 variable "ami_password" {}

@@ -2,19 +2,19 @@
 #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet
 
   module "droplet_redis"  {
-    source             = "github.com/psychedelicto/digitalocean-terraform-modules/droplet"
-    image_name         = var.img_ubuntu
+    source             = "../../modules/droplet"
+    image_name         = var.img_docker
     name               = var.name_redis
     tenant             = var.tenant
     environment        = var.environment
     region             = var.region
-    ssh_keys           = [var.ssh_id]
+    ssh_keys           = [digitalocean_ssh_key.omnileads.fingerprint]
     vpc_uuid           = module.vpc.id
     droplet_size       = var.droplet_rtp_size
     monitoring         = false
     private_networking = true
     ipv6               = false
-    user_data          = templatefile("../user_data/redis.tpl", {
+    user_data          = templatefile("../../templates/redis.sh", {
    })
   }
 
@@ -24,8 +24,7 @@
   resource "digitalocean_firewall" "fw_redis" {
     name = var.name_redis
 
-    droplet_ids = [module.droplet_wombat.id[0]]
-
+    droplet_ids = [module.droplet_redis.id[0]]
 
 
     inbound_rule {

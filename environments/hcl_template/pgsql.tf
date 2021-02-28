@@ -3,7 +3,7 @@
 #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet #  PGSQL componenet
 
   module "pgsql"  {
-   source        = "github.com/psychedelicto/digitalocean-terraform-modules/db"
+   source        = "../../modules/db"
    name          = var.name_pgsql
    tenant        = var.tenant
    environment   = var.environment

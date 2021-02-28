@@ -1,7 +1,8 @@
+
 #!/bin/bash
 
 NIC=eth1 #NET Interface to attach services
-omnileads_release="release-1.11.7"  #OMniLeads release to deploy
+omnileads_release="release-1.13.0"  #OMniLeads release to deploy
 TZ="America/Argentina/Cordoba"  #Time Zone
 sca=1800 # Session cockie age
 ami_user=omnileadsami   #Asterisk AMI user
@@ -75,4 +76,3 @@ cd sngrep && ./bootstrap.sh && ./configure && make && make install
 ln -s /usr/local/bin/sngrep /usr/bin/sngrep
 
 reboot
-

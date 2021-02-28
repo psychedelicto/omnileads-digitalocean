@@ -1,68 +1,68 @@
 ## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
 ## GENERAL VARS ## GENERAL VARS ## GENERAL VARS
 
-# Region to deploy all
-region = "sfo2"
-vpc_cidr = "172.16.16.0/20"
 app = "omlapp"
 # Environment tag
 environment = "staging"
-# SSH id (take this value from web: Account-Settings-Security)
-ssh_id = "77:4e:2e:df:2c:9c:42:78:28:a3:e4:49:9f:4f:e6:07"
+# region
+region = "sfo3"
 # Your domain name
-domain_name = "omnileads.cloud"
+#domain_name = "sefirot.cloud"
 # CentOS-7 image
 img_centos = "centos-7-x64"
 # Ubuntu Server image
 img_ubuntu = "ubuntu-18-04-x64"
+# Docker image
+img_docker = "docker-20-04"
+
+#spaces_bucket_name = "omnileads"
 
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 
 # OMLapp component droplet size
-droplet_oml_size = "s-4vcpu-8gb"
+droplet_oml_size = "s-1vcpu-1gb"
 # RTPengine componenet droplet size
 droplet_rtp_size = "s-1vcpu-1gb"
+# REDIS component droplet size
+droplet_redis_size = "s-1vcpu-1gb"
 # Wombat dialer component droplet size
 droplet_dialer_size = "s-1vcpu-1gb"
-# REDIS component droplet size
-redis_size = "db-s-1vcpu-1gb"
-# PGSQL component cluster size
+# PGSQL component digitalocean-cluster size
 pgsql_size = "db-s-1vcpu-1gb"
-# Disk size GB for OML call recording
-disk_recording_size = 5
 # RamDisk size MB for OML call recording
 recording_ramdisk_size = 200
 
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS ## COMPONENETS NAME VARS
 
-# change "customer" by customer name
-name = "customer"
-tenant = "customer"
-name_rtpengine = "customer-rtp"
-name_pgsql = "customer-pgsql"
-name_redis = "customer-redis"
-name_mariadb = "customer-mariadb"
-name_wombat = "customer-wombat"
-name_omlapp = "customer-omlapp"
-name_lb = "customer-lb"
-name_nfs_recordings="customer-recordings"
+# Don't change this variables !!!!
+# Don't change this variables !!!!
+# Don't change this variables !!!!
+name = "customer-name"
+tenant = "customer-name"
+name_rtpengine = "customer-name-rtp"
+name_pgsql = "customer-name-pgsql"
+name_redis = "customer-name-redis"
+name_mariadb = "customer-name-mariadb"
+name_wombat = "customer-name-wombat"
+name_lb = "customer-name-lb"
+name_omlapp = "customer-name-omlapp"
+omlapp_hostname = "customer-name-omlapp.sefirot.cloud"
+# OMLapp droplet private NIC
+network_interface = "eth1"
 
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
+
 # OMLApp release to deploy
-oml_release = "pre-release-1.12.0"
+oml_release = "master"
 # Asterisk SIP Trunks allowed ips
 sip_allowed_ip = ["142.93.27.10/32"]
 # Time Zone to apply on Django
 oml_tz = "America/Argentina/Cordoba"
-# OMLapp droplet private NIC
-network_interface = "eth1"
-# OMLapp recording dir name
-recording_device = "oml"
-# OMLapp droplet hostname
-omlapp_hostname = "customer-omlapp.omnileads.cloud"
+
+
 # Asterisk AMI USER for OMLApp manager connections
 ami_user = "omnileadsami"
 # Asterisk AMI PASS for AMI USER OMLApp manager connections
