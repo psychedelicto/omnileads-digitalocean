@@ -6,30 +6,30 @@ Deploy your own Contact Center as a Service business on Digitalocean with OMniLe
 <p>In this repository you will find the terraform code necessary to deploy OMniLeads on digitalocean in an automated way and isolating the main components of the App in such a way that the security of business data and the ease of scaling any component prevail.</p>
 
 
-## Components and Deploy
+## Components distribution 🔧
 
 There are three ways to deploy the app and its components
 
-* AIO - All in One Droplet: bajo este esquema todos los componenetes de OMniLeads se ejecutan en un Droplet.
+* **AIO - All in One**: on this scenario all the components are deployed on same Droplet.
 
 ![All In One](./docs/AIO.png)
 
-* Cluster: bajo este esquema se separan los componenetes PGSQL, Redis y RTPEngine sobre Droplets individuales, quedando el resto de los componentes (Nginx, Kamailio, Asterisk y Django-uwsgi) en otro Droplet.
+* Cluster: on this scenario we split the components PSQL, Redis and RTPEngine on isolates Droplets, while the rest of the components (Nginx, Kamailio, Asterisk, Django-uwsgi, Wombat-dialer and MySQL) share the restate droplet.
 
 ![Cluster](./docs/cluster.png)
 
-* Cluster with Dialer: bajo este esquema se separan los componentes PGSQL, Redis, RTPEngine, Wombat-Dialer y MySQL sobre Droplets individuales, quedando el resto de los componentes (Nginx, Kamailio, Asterisk y Django-uwsgi) en otro Droplet.
+* Cluster with dialer: on this scenario we split the components PSQL, Redis, RTPEngine, Wombat-dialer and MySQL on isolates Droplets, while the rest of the components (Nginx, Kamailio, Asterisk y Django-uwsgi) share the restate droplet.
 
 ![Cluster with Dialer](./docs/cluster_dialer.png)
 
-Más allá de la combinación elegida hay tres constantes en común:
+All three scenarios share the fact:
 
-* Cada Droplet es generado con su Firewall para proteger cada servicio y admitir conexiones limitando el origen a otro componente.
-* Se levanta un load balancer con el certificado SSL (let's and crypt) para recibir las solicitudes HTTPS y derivarlas al NGINX de OMniLeads.
-* Las grabaciones de las llamadas se almacenan en un bucket de SPACES.
+* Each instance is generated with its corresponding firewall.
+* A load balancer is implemented with SSL certificates (Let's & crypt). This LB attend the HTTPS request and re-send to OMniLeds Nginx web server.
+* Call recordings files are stored on Spaces Bucket in order to grown without limit :)
 
 
-## Prerequisites
+## Prerequisites 📋
 
 The following steps are required before proceeding to the next steps.
 
@@ -54,7 +54,7 @@ export TF_VAR_spaces_bucket_name=omnileads
 export TF_VAR_domain_name=your_domain.com
 ```
 
-## Tenant
+## Deploy
 
 The first thing we have to do is work with the variables.
 
@@ -62,7 +62,7 @@ On the one hand we have general variables, then variables linked to the sizing a
 The vars.tfvars file have all parameters with their description.
 
 
-## Deploy
+## Deploy 🚀
 
 
 ## License
