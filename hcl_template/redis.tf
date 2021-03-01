@@ -2,19 +2,19 @@
 #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet #  REDIS componenet
 
   module "droplet_redis"  {
-    source             = "../../modules/droplet"
+    source             = "../omnileads-digitalocean/modules/droplet"
     image_name         = var.img_docker
     name               = var.name_redis
     tenant             = var.tenant
     environment        = var.environment
     region             = var.region
-    ssh_keys           = [digitalocean_ssh_key.omnileads.fingerprint]
+    ssh_keys           = [var.ssh_key_fingerprint]
     vpc_uuid           = module.vpc.id
     droplet_size       = var.droplet_rtp_size
     monitoring         = false
     private_networking = true
     ipv6               = false
-    user_data          = templatefile("../../templates/redis.sh", {
+    user_data          = templatefile("../omnileads-digitalocean/templates/redis.sh", {
    })
   }
 

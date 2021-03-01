@@ -7,6 +7,7 @@ variable "name" {}
 variable "tenant" {}
 variable "environment" {}
 variable "spaces_bucket_name" {}
+variable "ssh_key_fingerprint" {}
 
 variable "spaces_key" {}
 variable "spaces_secret_key" {}
@@ -20,7 +21,6 @@ variable "name_omlapp" {}
 variable "name_lb" {}
 
 variable "app" {}
-variable "ssh_id" {}
 variable "droplet_oml_size" {}
 variable "droplet_rtp_size" {}
 variable "droplet_dialer_size" {}
