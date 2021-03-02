@@ -56,7 +56,7 @@ export TF_VAR_domain_name=your_domain.com
 
 ## Deploy 🚀
 
-Para llevar a cabo el deploy vamos a usar la utilidad *make* :
+To spin up the deploy we are going to use the  *make* utility:
 
 * **make init**: The first step is to generate all the customer folder and build config files.
 
@@ -66,9 +66,31 @@ make init ENV=$customer-name TYPE=$deploy-type
 
 The ENV parameter refers to the name with which we want to identify the customer in the cloud infrastructure and the second TYPE has to do with the type of OML architecture to be deployed
 
-*TYPE=aio*
-*TYPE=cluster*
-*TYPE=cluster_dialer*
+*TYPE=aio*, *TYPE=cluster* or *TYPE=cluster_dialer*
+
+The execution of *make init*  has generated the *../customer-name* directory where the *var.auto.tfvars* file resides. This file has many variables like the sizing of Droplets and Cluster components. You can tune this parameters according to the size of the operation to display:
+
+```
+droplet_oml_size = "s-1vcpu-1gb"
+droplet_rtp_size = "s-1vcpu-1gb"
+droplet_redis_size = "s-1vcpu-1gb"
+droplet_dialer_size = "s-1vcpu-1gb"
+pgsql_size = "db-s-1vcpu-1gb"
+```
+
+Set the timezone where the nodes are:
+
+```
+oml_tz = "America/Argentina/Cordoba"
+```
+
+Then we pay attention to a fundamental parameter since they involve the IP addresses of the SIP trunk providers that will be configured in the PSTN configuration part of OMniLeads, these IPs will be admitted by the firewall when accepting SIP packets:
+
+```
+sip_allowed_ip = ["X.X.X.X/32","Y.Y.Y.Y/32","Z.Z.Z.Z/32"]
+```
+
+Once the variables have been adjusted, proceed with the plan :)
 
 * **make plan**: this command is a convenient way to check whether the execution plan for a set of changes matches your expectations without making any changes to real resources or to the state.
 
@@ -93,6 +115,9 @@ make destroy ENV=$customer-name
 ```
 make deletes ENV=$customer-name
 ```
+
+
+## Upgrades and Re-sizing
 
 
 
