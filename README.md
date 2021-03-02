@@ -14,11 +14,11 @@ There are three ways to deploy the app and its components
 
 ![All In One](./docs/AIO.png)
 
-* Cluster: on this scenario we split the components PSQL, Redis and RTPEngine on isolates Droplets, while the rest of the components (Nginx, Kamailio, Asterisk, Django-uwsgi, Wombat-dialer and MySQL) share the restate droplet.
+* **Cluster**: on this scenario we split the components PSQL, Redis and RTPEngine on isolates Droplets, while the rest of the components (Nginx, Kamailio, Asterisk, Django-uwsgi, Wombat-dialer and MySQL) share the restate droplet.
 
 ![Cluster](./docs/cluster.png)
 
-* Cluster with dialer: on this scenario we split the components PSQL, Redis, RTPEngine, Wombat-dialer and MySQL on isolates Droplets, while the rest of the components (Nginx, Kamailio, Asterisk y Django-uwsgi) share the restate droplet.
+* **Cluster with dialer**: on this scenario we split the components PSQL, Redis, RTPEngine, Wombat-dialer and MySQL on isolates Droplets, while the rest of the components (Nginx, Kamailio, Asterisk y Django-uwsgi) share the restate droplet.
 
 ![Cluster with Dialer](./docs/cluster_dialer.png)
 
@@ -54,15 +54,45 @@ export TF_VAR_spaces_bucket_name=omnileads
 export TF_VAR_domain_name=your_domain.com
 ```
 
-## Deploy
+## Deploy 🚀
 
-The first thing we have to do is work with the variables.
+Para llevar a cabo el deploy vamos a usar la utilidad *make* :
+
+* make init: para levantar un nuevo entorno con sus variables y módulos.
+
+```
+make init ENV=$customer-name TYPE=$deploy-type
+```
+
+* make plan: para sacar un listado de todo lo que se va a generar/modificar una vez que se aplique el make apply.
+
+```
+make plan ENV=$customer-name
+```
+
+* make apply: para impactar los cambios de la infraestructura en la nube.
+
+```
+make apply ENV=$customer-name
+```
+
+* make destroy: para eliminar toda la infraestructura de un cliente.
+
+```
+make destroy ENV=$customer-name
+```
+
+* make delete: para eliminar el directorio de cliente generado con el make init.
+
+```
+make deletes ENV=$customer-name
+```
+
 
 On the one hand we have general variables, then variables linked to the sizing and names of the components and finally variables linked to application parameters.
 The vars.tfvars file have all parameters with their description.
 
 
-## Deploy 🚀
 
 
 ## License
