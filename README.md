@@ -78,8 +78,12 @@ droplet_dialer_size = "s-1vcpu-1gb"
 pgsql_size = "db-s-1vcpu-1gb"
 ```
 
-Set the timezone where the nodes are:
+The release version of OMniLeads App:
 
+```
+oml_release = "release-1.13.0"
+```
+Set the timezone where the nodes are:
 ```
 oml_tz = "America/Argentina/Cordoba"
 ```
@@ -118,6 +122,10 @@ make deletes ENV=$customer-name
 
 
 ## Upgrades and Re-sizing
+
+Both for the management of updates and when resizing a component, simply adjust the variables already mentioned within the file corresponding to each customer and then
+execute a *make plan* and then the *make apply*.
+
 
 
 
