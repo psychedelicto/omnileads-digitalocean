@@ -19,6 +19,7 @@ variable "name_mariadb" {}
 variable "name_wombat" {}
 variable "name_omlapp" {}
 variable "name_lb" {}
+variable "name_kamailio" {}
 
 variable "app" {}
 variable "droplet_oml_size" {}

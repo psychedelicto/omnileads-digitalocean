@@ -47,6 +47,7 @@ name_redis = "customer-name-redis"
 name_mariadb = "customer-name-mariadb"
 name_wombat = "customer-name-wombat"
 name_lb = "customer-name-lb"
+name_kamailio = "customer-name-kamailio"
 name_omlapp = "customer-name-omlapp"
 omlapp_hostname = "customer-name-omlapp.sefirot.cloud"
 # OMLapp droplet private NIC

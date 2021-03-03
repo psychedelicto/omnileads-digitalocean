@@ -40,6 +40,14 @@ prepare_deploy_links() {
     ln -s ../omnileads-digitalocean/hcl_template/omlapp.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/dialer.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/mysql.tf ./
+  elif [ "${type}" == "cluster_full" ] || [ "${dialer}" == "CLUSTER_FULL" ]; then
+    ln -s ../omnileads-digitalocean/hcl_template/redis.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/omlapp.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/dialer.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/mysql.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/kamailio.tf ./  
   fi
   sed -i "s/customer-name/$environment/" ./vars.auto.tfvars
   sed -i "s/customer-name/$environment/" ./provider.tf
