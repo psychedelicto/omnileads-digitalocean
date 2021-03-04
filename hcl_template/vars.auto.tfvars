@@ -28,6 +28,8 @@ droplet_rtp_size = "s-1vcpu-1gb"
 droplet_redis_size = "s-1vcpu-1gb"
 # Wombat dialer component droplet size
 droplet_dialer_size = "s-1vcpu-1gb"
+# Kamailio component droplet size
+droplet_kamailio_size = "s-1vcpu-1gb"
 # PGSQL component digitalocean-cluster size
 pgsql_size = "db-s-1vcpu-1gb"
 # RamDisk size MB for OML call recording
@@ -57,7 +59,7 @@ network_interface = "eth1"
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 
 # OMLApp release to deploy
-oml_release = "release-1.13.0"
+oml_release = "oml-1777-epica-separacion-componentes-oml"
 # Asterisk SIP Trunks allowed ips
 sip_allowed_ip = ["142.93.27.10/32"]
 # Time Zone to apply on Django

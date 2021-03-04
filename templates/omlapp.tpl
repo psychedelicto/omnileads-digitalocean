@@ -11,7 +11,7 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 echo "******************** yum update and install packages ***************************"
 echo "******************** yum update and install packages ***************************"
-yum update -y && yum install git nfs-utils python3-pip -y
+yum update -y && yum install git python3-pip -y
 
 echo "******************** install ansible ***************************"
 echo "******************** install ansible ***************************"
@@ -38,6 +38,17 @@ cd ominicontacto && git checkout ${omnileads_release}
 git submodule init
 git submodule update
 git submodule update --remote
+
+##############################################
+##############################################
+cd modules/kamailio && git checkout develop
+cd ../rtpengine && git checkout develop
+cd ../nginx && git checkout develop
+cd ../redis && git checkout develop
+cd ../..
+##############################################
+##############################################
+
 
 if [ "${deploy_type}" == "aio" ]; then
   python ansible/deploy/edit_inventory.py --self_hosted=yes \

@@ -85,6 +85,12 @@
       source_droplet_ids        = [module.droplet_wombat.id[0]]
     }
 
+    inbound_rule {
+      protocol                  = "udp"
+      port_range                = "5160"
+      source_droplet_ids        = [module.droplet_kamailio.id[0]]
+    }
+
     dynamic "inbound_rule" {
       iterator = sip_allowed_ip
       for_each = var.sip_allowed_ip

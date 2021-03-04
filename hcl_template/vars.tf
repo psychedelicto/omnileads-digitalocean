@@ -25,6 +25,7 @@ variable "app" {}
 variable "droplet_oml_size" {}
 variable "droplet_rtp_size" {}
 variable "droplet_dialer_size" {}
+variable "droplet_kamailio_size" {}
 variable "droplet_redis_size" {}
 variable "pgsql_size" {}
 variable "recording_ramdisk_size" {}
@@ -64,6 +65,13 @@ variable "extern_ip" {
   default = "none"
 }
 
+variable "kamailio_pkg_size" {
+  default = "8"
+}
+
+variable "kamailio_shm_size" {
+  default = "64"
+}
 
 # Wombat dialer
 variable "wombat_database" {}
