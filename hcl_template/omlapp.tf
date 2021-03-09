@@ -30,10 +30,7 @@
     pg_port                       = module.pgsql.database_port
     pg_database                   = var.pg_database
     pg_username                   = var.pg_username
-    pg_password                   = var.pg_password
-    pg_default_database           = module.pgsql.database_name
-    pg_default_user               = module.pgsql.database_user
-    pg_default_password           = module.pgsql.database_password
+    pg_password                   = digitalocean_database_user.omnileads.password
     rtpengine_host                = module.droplet_rtpengine.ipv4_address_private
     redis_host                    = module.droplet_redis.ipv4_address_private
     dialer_host                   = module.droplet_wombat.ipv4_address_private

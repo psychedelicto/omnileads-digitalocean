@@ -32,13 +32,13 @@ prepare_deploy_links() {
     ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/omlapp_a.tf ./
-  elif [ "${type}" == "cluster_c" ] || [ "${dialer}" == "CLUSTER_B" ]; then
+  elif [ "${type}" == "cluster_b" ] || [ "${dialer}" == "CLUSTER_B" ]; then
     ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/omlapp_b.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/dialer.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/mysql.tf ./
-  elif [ "${type}" == "cluster_all" ] || [ "${dialer}" == "CLUSTER_C" ]; then
+  elif [ "${type}" == "cluster_c" ] || [ "${dialer}" == "CLUSTER_C" ]; then
     ln -s ../omnileads-digitalocean/hcl_template/redis.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./

@@ -76,9 +76,6 @@ elif [ "${deploy_type}" == "cluster" ]; then
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
   --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
   --sca=${sca} \
@@ -99,9 +96,6 @@ elif [ "${deploy_type}" == "cluster_dialer" ]; then
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
   --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
   --sca=${sca} \
@@ -123,9 +117,6 @@ elif [ "${deploy_type}" == "cluster_full" ]; then
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
   --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
   --sca=${sca} \
