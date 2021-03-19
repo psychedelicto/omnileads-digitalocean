@@ -37,16 +37,15 @@ echo "***************************** inventory setting **************************
 cd ominicontacto && git checkout ${omnileads_release}
 git submodule init
 git submodule update
-git submodule update --remote
 
 ##############################################
-##############################################
 cd modules/kamailio && git checkout develop
+cd ../asterisk && git checkout develop
 cd ../rtpengine && git checkout develop
 cd ../nginx && git checkout develop
 cd ../redis && git checkout develop
+cd ../postgresql && git checkout develop
 cd ../..
-##############################################
 ##############################################
 
 
@@ -110,7 +109,6 @@ elif [ "${deploy_type}" == "cluster_full" ]; then
   --dialer_password=${dialer_password} \
   --dialer_host=${dialer_host} \
   --mysql_host=${mysql_host} \
-  --kamailio_host=${kamailio_host} \
   --ecctl=${ecctl} \
   --postgres_host=${pg_host} \
   --postgres_port=${pg_port} \
