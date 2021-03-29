@@ -31,6 +31,7 @@ droplet_dialer_size = "s-1vcpu-1gb"
 # Kamailio component droplet size
 droplet_kamailio_size = "s-1vcpu-1gb"
 # PGSQL component digitalocean-cluster size
+droplet_postgresql_size = "s-1vcpu-1gb"
 pgsql_size = "db-s-1vcpu-1gb"
 # RamDisk size MB for OML call recording
 recording_ramdisk_size = 200

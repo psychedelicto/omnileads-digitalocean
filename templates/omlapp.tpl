@@ -117,6 +117,7 @@ elif [ "${deploy_type}" == "cluster_full" ]; then
   --postgres_password=${pg_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
+  --kamailio_host=${kamailio_host} \
   --sca=${sca} \
   --schedule=${schedule} \
   --extern_ip=${extern_ip} \

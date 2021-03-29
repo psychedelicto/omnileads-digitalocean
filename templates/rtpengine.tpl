@@ -1,6 +1,7 @@
 #!/bin/bash
 
 RELEASE=develop
+SRC=/usr/src
 
 echo "************************* yum update and install kernel-devel ***********************************"
 echo "************************* yum update and install kernel-devel ***********************************"
@@ -22,6 +23,7 @@ PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/i
 
 echo "******************** Install rtpengine ***************************"
 echo "******************** Install rtpengine ***************************"
+cd $SRC
 git clone https://gitlab.com/omnileads/omlrtpengine.git
 cd omlrtpengine
 git checkout $RELEASE

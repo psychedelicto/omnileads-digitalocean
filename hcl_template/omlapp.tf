@@ -26,11 +26,11 @@
     dialer_user                   = var.dialer_user
     dialer_password               = var.dialer_password
     ecctl                         = var.ecctl
-    pg_host                       = module.pgsql.database_private_host
-    pg_port                       = module.pgsql.database_port
+    pg_host                       = module.droplet_postgresql.ipv4_address_private
+    pg_port                       = "5432"
     pg_database                   = var.pg_database
     pg_username                   = var.pg_username
-    pg_password                   = digitalocean_database_user.omnileads.password
+    pg_password                   = var.pg_password
     rtpengine_host                = module.droplet_rtpengine.ipv4_address_private
     redis_host                    = module.droplet_redis.ipv4_address_private
     dialer_host                   = module.droplet_wombat.ipv4_address_private

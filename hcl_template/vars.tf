@@ -27,6 +27,7 @@ variable "droplet_rtp_size" {}
 variable "droplet_dialer_size" {}
 variable "droplet_kamailio_size" {}
 variable "droplet_redis_size" {}
+variable "droplet_postgresql_size" {}
 variable "pgsql_size" {}
 variable "recording_ramdisk_size" {}
 variable "img_centos" {}

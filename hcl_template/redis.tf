@@ -14,7 +14,7 @@
     monitoring         = false
     private_networking = true
     ipv6               = false
-    user_data          = templatefile("../omnileads-digitalocean/templates/redis.sh", {
+    user_data          = templatefile("../omnileads-digitalocean/templates/redis.tpl", {
    })
   }
 

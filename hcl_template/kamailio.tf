@@ -1,5 +1,5 @@
-#  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet
-#  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet #  DIALER componenet
+#  KAMAILIO componenet #  KAMAILIO componenet #  KAMAILIO componenet #  KAMAILIO componenet #  KAMAILIO componenet
+#  KAMAILIO componenet #  KAMAILIO componenet #  KAMAILIO componenet #  KAMAILIO componenet #  KAMAILIO componenet
 
   module "droplet_kamailio"  {
    source             = "../omnileads-digitalocean/modules/droplet"
