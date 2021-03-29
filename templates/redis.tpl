@@ -33,4 +33,4 @@ echo "************************ config and install *************************"
 echo "************************ config and install *************************"
 echo "************************ config and install *************************"
 
-ansible-playbook kamailio.yml -i inventory --extra-vars "repo_location=$(pwd)/.. kamailio_version=$(cat ../.package_version)"
+ansible-playbook redis.yml -i inventory --extra-vars "redis_version=$(cat ../.redis_version) redisgears_version=$(cat ../.redisgears_version)"

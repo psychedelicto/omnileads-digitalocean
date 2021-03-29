@@ -3,14 +3,14 @@
 
   module "droplet_redis"  {
     source             = "../omnileads-digitalocean/modules/droplet"
-    image_name         = var.img_docker
+    image_name         = var.img_centos
     name               = var.name_redis
     tenant             = var.tenant
     environment        = var.environment
     region             = var.region
     ssh_keys           = [var.ssh_key_fingerprint]
     vpc_uuid           = module.vpc.id
-    droplet_size       = var.droplet_rtp_size
+    droplet_size       = var.droplet_redis_size
     monitoring         = false
     private_networking = true
     ipv6               = false
