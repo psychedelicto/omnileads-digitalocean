@@ -28,6 +28,10 @@ git clone https://gitlab.com/omnileads/omlrtpengine.git
 cd omlrtpengine
 git checkout $RELEASE
 cd ansible
+sed -i "s/extern_ip=auto/extern_ip=$PUBLIC_IPV4/g" ./inventory
+
 ansible-playbook rtpengine.yml -i inventory --extra-vars "iface=eth0 rtpengine_version=$(cat ../.rtpengine_version)"
+
+sed -i "s/extern_ip=auto/extern_ip=$PUBLIC_IPV4/g" ./inventory
 
 reboot

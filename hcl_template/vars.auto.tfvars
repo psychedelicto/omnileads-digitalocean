@@ -60,9 +60,9 @@ network_interface = "eth1"
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 
 # OMLApp release to deploy
-oml_release = "oml-1960-dev-separar-componente-asterisk"
+oml_release = "oml-1777-epica-separacion-componentes-oml"
 # Asterisk SIP Trunks allowed ips
-sip_allowed_ip = ["142.93.27.10/32"]
+sip_allowed_ip = ["190.19.150.8/32"]
 # Time Zone to apply on Django
 oml_tz = "America/Argentina/Cordoba"
 
