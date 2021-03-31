@@ -26,18 +26,16 @@
     dialer_user                   = var.dialer_user
     dialer_password               = var.dialer_password
     ecctl                         = var.ecctl
-    pg_host                       = module.pgsql.database_private_host
-    pg_port                       = module.pgsql.database_port
+    pg_host                       = module.droplet_postgresql.ipv4_address_private
+    pg_port                       = "5432"
     pg_database                   = var.pg_database
     pg_username                   = var.pg_username
     pg_password                   = var.pg_password
-    pg_default_database           = module.pgsql.database_name
-    pg_default_user               = module.pgsql.database_user
-    pg_default_password           = module.pgsql.database_password
     rtpengine_host                = module.droplet_rtpengine.ipv4_address_private
     redis_host                    = module.droplet_redis.ipv4_address_private
     dialer_host                   = module.droplet_wombat.ipv4_address_private
     mysql_host                    = module.droplet_mariadb.ipv4_address_private
+    kamailio_host                 = module.droplet_kamailio.ipv4_address_private
     sca                           = var.sca
     schedule                      = var.schedule
     extern_ip                     = var.extern_ip
@@ -47,7 +45,7 @@
     spaces_bucket_name            = var.spaces_bucket_name
     spaces_bucket_tenant          = var.tenant
     recording_ramdisk_size        = var.recording_ramdisk_size
-    deploy_type                   = "cluster_dialer"
+    deploy_type                   = "cluster_full"
     })
   }
 
@@ -82,6 +80,12 @@
       protocol                  = "tcp"
       port_range                = "5038"
       source_droplet_ids        = [module.droplet_wombat.id[0]]
+    }
+
+    inbound_rule {
+      protocol                  = "udp"
+      port_range                = "5160"
+      source_droplet_ids        = [module.droplet_kamailio.id[0]]
     }
 
     dynamic "inbound_rule" {

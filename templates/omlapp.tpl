@@ -11,7 +11,7 @@ sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
 echo "******************** yum update and install packages ***************************"
 echo "******************** yum update and install packages ***************************"
-yum update -y && yum install git nfs-utils python3-pip -y
+yum update -y && yum install git python3-pip -y
 
 echo "******************** install ansible ***************************"
 echo "******************** install ansible ***************************"
@@ -35,9 +35,20 @@ git clone https://gitlab.com/omnileads/ominicontacto.git
 echo "***************************** inventory setting *************************************"
 echo "***************************** inventory setting *************************************"
 cd ominicontacto && git checkout ${omnileads_release}
-# git submodule init
-# git submodule update
-# git submodule update --remote
+git submodule init
+git submodule update
+
+##############################################
+cd modules/kamailio && git checkout develop
+cd ../asterisk && git checkout develop
+cd ../rtpengine && git checkout develop
+cd ../nginx && git checkout develop
+sed -i "s/84.847/210330.01/g" .package_version
+cd ../redis && git checkout develop
+cd ../postgresql && git checkout develop
+cd ../..
+##############################################
+
 
 if [ "${deploy_type}" == "aio" ]; then
   python ansible/deploy/edit_inventory.py --self_hosted=yes \
@@ -65,9 +76,6 @@ elif [ "${deploy_type}" == "cluster" ]; then
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
   --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
   --sca=${sca} \
@@ -88,11 +96,29 @@ elif [ "${deploy_type}" == "cluster_dialer" ]; then
   --postgres_database=${pg_database} \
   --postgres_user=${pg_username} \
   --postgres_password=${pg_password} \
-  --default_postgres_database=${pg_default_database} \
-  --default_postgres_user=${pg_default_user} \
-  --default_postgres_password=${pg_default_password} \
   --redis_host=${redis_host} \
   --rtpengine_host=${rtpengine_host} \
+  --sca=${sca} \
+  --schedule=${schedule} \
+  --extern_ip=${extern_ip} \
+  --TZ=${TZ}
+elif [ "${deploy_type}" == "cluster_full" ]; then
+  python ansible/deploy/edit_inventory.py --self_hosted=yes \
+  --ami_user=${ami_user} \
+  --ami_password=${ami_password} \
+  --dialer_user=${dialer_user} \
+  --dialer_password=${dialer_password} \
+  --dialer_host=${dialer_host} \
+  --mysql_host=${mysql_host} \
+  --ecctl=${ecctl} \
+  --postgres_host=${pg_host} \
+  --postgres_port=${pg_port} \
+  --postgres_database=${pg_database} \
+  --postgres_user=${pg_username} \
+  --postgres_password=${pg_password} \
+  --redis_host=${redis_host} \
+  --rtpengine_host=${rtpengine_host} \
+  --kamailio_host=${kamailio_host} \
   --sca=${sca} \
   --schedule=${schedule} \
   --extern_ip=${extern_ip} \
@@ -112,9 +138,9 @@ if [ -d /usr/local/queuemetrics/ ]; then
   systemctl stop mariadb && systemctl disable mariadb
 fi
 
-echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
-echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
-echo "SSLMode       = require" >> /etc/odbc.ini
+#echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
+#echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
+#echo "SSLMode       = require" >> /etc/odbc.ini
 
 echo "*********************** S3 call recordings ********************************"
 echo "*********************** S3 call recordings ********************************"

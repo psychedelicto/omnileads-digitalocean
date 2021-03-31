@@ -59,7 +59,7 @@ python deploy/vagrant/edit_inventory.py --self_hosted=yes \
 sleep 10
 
 echo "deploy.sh execution"
-cd deploy/ansible && ./deploy.sh -i --iface=$NIC
+cd ansible/deploy && ./deploy.sh -i --iface=$NIC
 sleep 5
 if [ -d /usr/local/queuemetrics/ ]; then
   systemctl stop qm-tomcat6 && systemctl disable qm-tomcat6

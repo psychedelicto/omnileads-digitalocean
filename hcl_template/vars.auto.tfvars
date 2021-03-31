@@ -28,7 +28,10 @@ droplet_rtp_size = "s-1vcpu-1gb"
 droplet_redis_size = "s-1vcpu-1gb"
 # Wombat dialer component droplet size
 droplet_dialer_size = "s-1vcpu-1gb"
+# Kamailio component droplet size
+droplet_kamailio_size = "s-1vcpu-1gb"
 # PGSQL component digitalocean-cluster size
+droplet_postgresql_size = "s-1vcpu-1gb"
 pgsql_size = "db-s-1vcpu-1gb"
 # RamDisk size MB for OML call recording
 recording_ramdisk_size = 200
@@ -47,6 +50,7 @@ name_redis = "customer-name-redis"
 name_mariadb = "customer-name-mariadb"
 name_wombat = "customer-name-wombat"
 name_lb = "customer-name-lb"
+name_kamailio = "customer-name-kamailio"
 name_omlapp = "customer-name-omlapp"
 omlapp_hostname = "customer-name-omlapp.sefirot.cloud"
 # OMLapp droplet private NIC
@@ -56,9 +60,9 @@ network_interface = "eth1"
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 
 # OMLApp release to deploy
-oml_release = "release-1.13.0"
+oml_release = "oml-1777-epica-separacion-componentes-oml"
 # Asterisk SIP Trunks allowed ips
-sip_allowed_ip = ["142.93.27.10/32"]
+sip_allowed_ip = ["190.19.150.8/32"]
 # Time Zone to apply on Django
 oml_tz = "America/Argentina/Cordoba"
 

@@ -28,18 +28,30 @@ prepare_deploy_links() {
 
   if [ "${type}" == "aio" ] || [ "${type}" == "AIO" ]; then
     ln -s ../omnileads-digitalocean/hcl_template/omlapp_aio.tf ./
-  elif [ "${type}" == "cluster" ] || [ "${type}" == "CLUSTER" ]; then
+  elif [ "${type}" == "cluster_a" ] || [ "${type}" == "CLUSTER_A" ]; then
+    ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/omlapp_a.tf ./
+  elif [ "${type}" == "cluster_b" ] || [ "${dialer}" == "CLUSTER_B" ]; then
+    ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/omlapp_b.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/dialer.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/mysql.tf ./
+  elif [ "${type}" == "cluster_c" ] || [ "${dialer}" == "CLUSTER_C" ]; then
     ln -s ../omnileads-digitalocean/hcl_template/redis.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./
-    ln -s ../omnileads-digitalocean/hcl_template/omlapp_not_dialer.tf ./
-  elif [ "${type}" == "cluster_dialer" ] || [ "${dialer}" == "CLUSTER_DIALER" ]; then
+    ln -s ../omnileads-digitalocean/hcl_template/omlapp_c.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/kamailio.tf ./
+  elif [ "${type}" == "cluster_all" ] || [ "${dialer}" == "CLUSTER_ALL" ]; then
     ln -s ../omnileads-digitalocean/hcl_template/redis.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/rtpengine.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/pgsql.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/omlapp.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/dialer.tf ./
     ln -s ../omnileads-digitalocean/hcl_template/mysql.tf ./
+    ln -s ../omnileads-digitalocean/hcl_template/kamailio.tf ./
   fi
   sed -i "s/customer-name/$environment/" ./vars.auto.tfvars
   sed -i "s/customer-name/$environment/" ./provider.tf
