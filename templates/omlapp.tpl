@@ -43,6 +43,7 @@ cd modules/kamailio && git checkout develop
 cd ../asterisk && git checkout develop
 cd ../rtpengine && git checkout develop
 cd ../nginx && git checkout develop
+sed -i "s/84.847/210330.01/g" .package_version
 cd ../redis && git checkout develop
 cd ../postgresql && git checkout develop
 cd ../..
@@ -137,9 +138,9 @@ if [ -d /usr/local/queuemetrics/ ]; then
   systemctl stop mariadb && systemctl disable mariadb
 fi
 
-echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
-echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
-echo "SSLMode       = require" >> /etc/odbc.ini
+#echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
+#echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
+#echo "SSLMode       = require" >> /etc/odbc.ini
 
 echo "*********************** S3 call recordings ********************************"
 echo "*********************** S3 call recordings ********************************"
