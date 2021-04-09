@@ -30,7 +30,7 @@ echo "************************ clone REPO *************************"
 cd $SRC && git clone https://gitlab.com/omnileads/omlpgsql.git
 cd omlpgsql
 git checkout $RELEASE
-cd ansible
+cd deploy
 
 echo "************************ config and install *************************"
 echo "************************ config and install *************************"

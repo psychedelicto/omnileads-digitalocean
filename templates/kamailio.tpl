@@ -28,7 +28,7 @@ echo "************************ clone REPO *************************"
 cd $SRC && git clone https://gitlab.com/omnileads/omlkamailio.git
 cd omlkamailio
 git checkout $RELEASE
-cd ansible
+cd deploy
 
 echo "************************ config and install *************************"
 echo "************************ config and install *************************"

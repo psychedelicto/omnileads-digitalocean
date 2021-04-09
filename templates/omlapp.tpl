@@ -43,7 +43,6 @@ cd modules/kamailio && git checkout develop
 cd ../asterisk && git checkout develop
 cd ../rtpengine && git checkout develop
 cd ../nginx && git checkout develop
-sed -i "s/84.847/210330.01/g" .package_version
 cd ../redis && git checkout develop
 cd ../postgresql && git checkout develop
 cd ../..
