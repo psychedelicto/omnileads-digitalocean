@@ -45,7 +45,7 @@
     spaces_bucket_name            = var.spaces_bucket_name
     spaces_bucket_tenant          = var.tenant
     recording_ramdisk_size        = var.recording_ramdisk_size
-    deploy_type                   = "cluster_full"
+    deploy_type                   = "cluster_full"    
     })
   }
 

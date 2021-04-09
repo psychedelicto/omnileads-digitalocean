@@ -1,22 +1,30 @@
 #!/bin/bash
 
-#mysql_username=$1
-#mysql_password=$2
-#DIALER_HOST=$3
+PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
+PRIVATE_NETMASK=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/netmask)
 
-echo "******************** prereq selinux and firewalld ***************************"
-echo "******************** prereq selinux and firewalld ***************************"
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
-systemctl disable firewalld
-setenforce 0
+REPO_URL=https://github.com/psychedelicto/omnileads-onpremise-cluster.git
+REPO_RELEASE=onpre-001-oml-2-punto-0
 
-echo "******************** yum install mariaDB ***************************"
-echo "******************** yum install mariaDB ***************************"
-yum install mariadb-server -y
-systemctl start mariadb
-systemctl enable mariadb
+export NIC=eth1
 
-echo "******************** postinstall configuration ***************************"
-echo "******************** postinstall configuration ***************************"
-mysql -e "GRANT ALL ON *.* to '${mysql_username}'@'%' IDENTIFIED BY '${mysql_password}' WITH GRANT OPTION;"
+export DIALER_USER=${mysql_username}
+export DIALER_PASS=${mysql_password}
+
+yum install -y epel-release
+yum install -y git ipcalc
+
+IPADDR_MASK=$(ip addr show $NIC | grep "inet\b" | awk '{print $2}')
+NETADDR_IPV4=$(ipcalc -n $IPADDR_MASK |cut -d = -f 2)
+NETMASK_PREFIX=$(ipcalc -m $IPADDR_MASK |cut -d= -f2)
+
+export LAN_ADDRESS="$NETADDR_IPV4/$NETMASK_PREFIX"
+
+cd $SRC
+git clone $REPO_URL
+cd omnileads-onpremise-cluster
+git checkout $REPO_RELEASE
+chmod +x 7_mariadb/mariadb_install.sh
+sh ./7_mariadb/mariadb_install.sh
+
+rm -rf $SRC/omnileads-onpremise-cluster

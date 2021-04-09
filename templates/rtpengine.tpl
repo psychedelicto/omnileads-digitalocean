@@ -1,35 +1,33 @@
 #!/bin/bash
 
-RELEASE=develop
-SRC=/usr/src
+REPO_URL=https://github.com/psychedelicto/omnileads-onpremise-cluster.git
+REPO_BRANCH=onpre-001-oml-2-punto-0
 
-echo "************************* yum update and install kernel-devel ***********************************"
-echo "************************* yum update and install kernel-devel ***********************************"
-yum update -y && yum install git python3-pip python3 -y
-pip3 install pip --upgrade
-pip3 install 'ansible==2.9.2'
+export COMPONENT_REPO=https://gitlab.com/omnileads/omlrtpengine.git
+export COMPONENT_RELEASE=omlrtp-001-without-ip-discover
+export SRC=/usr/src
 
+yum -y install git curl
 
-echo "******************** prereq selinux and firewalld ***************************"
-echo "******************** prereq selinux and firewalld ***************************"
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
-setenforce 0
+########################################## SCENARIO #######################################
+# You must to define your scenario to deploy RTPEngine
+# LAN if all agents work on LAN netwrok or VPN
+# CLOUD if all agents work from the WAN
+# HYBRID_1_NIC if some agents work on LAN and others from WAN and the host have ony 1 NIC
+# HYBRID_1_NIC if some agents work on LAN and others from WAN and the host have 2 NICs
+# (1 NIC for LAN IPADDR and 1 NIC for WAN IPADDR)
+export SCENARIO=CLOUD
+###########################################################################################
 
-echo "************************* Discover IPs ***********************************"
-echo "************************* Discover IPs ***********************************"
-PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)
-PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
+export PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)
+export PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
-echo "******************** Install rtpengine ***************************"
-echo "******************** Install rtpengine ***************************"
 cd $SRC
-git clone https://gitlab.com/omnileads/omlrtpengine.git
-cd omlrtpengine
-git checkout $RELEASE
-cd deploy
-ansible-playbook rtpengine.yml -i inventory --extra-vars "iface=eth0 rtpengine_version=$(cat ../.rtpengine_version)"
+git clone $REPO_URL
+cd omnileads-onpremise-cluster
+git checkout $REPO_BRANCH
+chmod +x 2_rtpengine/rtpengine_install.sh
+./2_rtpengine/rtpengine_install.sh
 
-echo "OPTIONS="-i $PUBLIC_IPV4  -o 60 -a 3600 -d 30 -s 120 -n $PRIVATE_IPV4:22222 -m 20000 -M 50000 -L 7 --log-facility=local1""  > /etc/rtpengine-config.conf
-
-reboot
+rm -rf $SRC/omnileads-onpremise-cluster
+rm -rf $SRC/omlrtpengine

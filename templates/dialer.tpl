@@ -1,31 +1,24 @@
 #!/bin/bash
 
-RELEASE=main
-OMLCOMP=dialer
-OMLDIR=/opt/omnileads/
-REPO_DIALER=https://github.com/psychedelicto/oml-dialer
-REPO_MYSQL=https://github.com/psychedelicto/oml-mysql
+REPO_URL=https://github.com/psychedelicto/omnileads-onpremise-cluster.git
+REPO_RELEASE=onpre-001-oml-2-punto-0
 
-# mysql_host=localhost
-# mysql_database=wombat
-# mysql_username=wombat
-# mysql_password=admin123
+export MYSQL_HOST=${mysql_host}
+export MYSQL_DB=${mysql_database}
+export MYSQL_USER=${mysql_username}
+export MYSQL_PASS=${mysql_password}
 
-yum install -y git
+yum -y install git
+cd $SRC
+git clone $REPO_URL
+cd omnileads-onpremise-cluster
+git checkout $REPO_RELEASE
 
-cd /var/tmp
-git clone $REPO_DIALER
-cd oml-dialer
-git checkout $RELEASE
-cd ..
-
-if [[ "${mysql_host}" == "localhost" ]]
+if [[ "$MYSQL_HOST" == "localhost" ]]
 then
-git clone $REPO_MYSQL
-chmod +x ./oml-mysql/deploy/onpremise/cloud-init/user_data.sh
-sh ./oml-mysql/deploy/onpremise/cloud-init/user_data.sh ${mysql_username} ${mysql_password} ${mysql_host}
+  chmod +x ./7_mariadb/user_data.sh
+  sh ./7_mariadb/user_data.sh
 fi
-chmod +x ./oml-dialer/deploy/digitalocean/cloud-init/install_dialer.sh
-sh ./oml-dialer/deploy/digitalocean/cloud-init/install_dialer.sh ${mysql_host} ${mysql_database} ${mysql_username} ${mysql_password}
 
-reboot
+chmod +x ./8_dialer/dialer.sh
+sh ./8_dialer/dialer.sh

@@ -1,36 +1,23 @@
 #!/bin/bash
 
-RELEASE=develop
-SRC=/usr/src
-PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
+REPO_URL=https://github.com/psychedelicto/omnileads-onpremise-cluster.git
+REPO_RELEASE=onpre-001-oml-2-punto-0
 
-echo "************************ install ansible *************************"
-echo "************************ install ansible *************************"
-echo "************************ install ansible *************************"
-yum install python3 python3-pip epel-release git -y
-pip3 install pip --upgrade
-pip3 install 'ansible==2.9.2'
-export PATH="$HOME/.local/bin/:$PATH"
+NIC=eth1
 
-echo "************************ disable SElinux *************************"
-echo "************************ disable SElinux *************************"
-echo "************************ disable SElinux *************************"
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
-sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
-setenforce 0
+export SRC=/usr/src
+export PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
+export REDIS_PORT=6379
+export COMPONENT_REPO=https://gitlab.com/omnileads/omlredis.git
+export COMPONENT_RELEASE=develop
 
-
-echo "************************ clone REPO *************************"
-echo "************************ clone REPO *************************"
-echo "************************ clone REPO *************************"
+yum -y install git
 cd $SRC
-git clone https://gitlab.com/omnileads/omlredis.git
-cd omlredis
-git checkout $RELEASE
-cd deploy
+git clone $REPO_URL
+cd omnileads-onpremise-cluster
+git checkout $REPO_RELEASE
+chmod +x 1_redis/redis_install.sh
+./1_redis/redis_install.sh
 
-echo "************************ config and install *************************"
-echo "************************ config and install *************************"
-echo "************************ config and install *************************"
-
-ansible-playbook redis.yml -i inventory --extra-vars "redis_version=$(cat ../.redis_version) redisgears_version=$(cat ../.redisgears_version)"
+rm -rf $SRC/omnileads-onpremise-cluster
+rm -rf $SRC/omlredis
