@@ -36,6 +36,8 @@
     dialer_host                   = module.droplet_wombat.ipv4_address_private
     mysql_host                    = module.droplet_mariadb.ipv4_address_private
     kamailio_host                 = module.droplet_kamailio.ipv4_address_private
+    asterisk_host                 = "NULL"
+    websocket_host                = "NULL"
     sca                           = var.sca
     schedule                      = var.schedule
     extern_ip                     = var.extern_ip
@@ -45,7 +47,6 @@
     spaces_bucket_name            = var.spaces_bucket_name
     spaces_bucket_tenant          = var.tenant
     recording_ramdisk_size        = var.recording_ramdisk_size
-    deploy_type                   = "cluster_full"    
     })
   }
 
