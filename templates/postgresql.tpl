@@ -15,12 +15,24 @@ export OMLAPP_DB_NAME=${database_name}
 export OMLAPP_USERNAME=${omlapp_user}
 export OMLAPP_PASSWORD=${omlapp_password}
 
-yum install -y epel-release
-yum install -y git ipcalc
+echo "************************ yum install *************************"
+echo "************************ yum install *************************"
+yum install -y python3 python3-pip epel-release git ipcalc
 
+echo "************************ Set Network config variables *************************"
+echo "************************ Set Network config variables *************************"
 export NETADDR_IPV4=$(ipcalc -n $PRIVATE_IPV4 $PRIVATE_NETMASK |cut -d = -f 2)
 export NETMASK_PREFIX=$(ipcalc -p $PRIVATE_IPV4 $PRIVATE_NETMASK |cut -d = -f 2)
 
+echo "************************ disable SElinux *************************"
+echo "************************ disable SElinux *************************"
+echo "************************ disable SElinux *************************"
+sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
+sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+setenforce 0
+
+echo "************************ Clone repo and run component install  *************************"
+echo "************************ Clone repo and run component install  *************************"
 cd $SOURCE_DIR
 git clone $REPO_URL
 cd omnileads-onpremise-cluster

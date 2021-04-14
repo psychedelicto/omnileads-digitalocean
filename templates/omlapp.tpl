@@ -25,7 +25,7 @@ export extern_ip=none
 if [[ "${pg_host}" != "NULL" ]]; then
 export PG_HOST=${pg_host}
 fi
-if [[ "${pg_port}" != "NULL"]]; then
+if [[ "${pg_port}" != "NULL" ]]; then
 export PG_PORT=${pg_port}
 fi
 if [[ "${kamailio_host}" != "NULL" ]]; then
