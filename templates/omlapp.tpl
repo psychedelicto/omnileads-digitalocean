@@ -4,7 +4,7 @@ PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv
 PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
 REPO_URL=https://github.com/psychedelicto/omnileads-onpremise-cluster.git
-REPO_RELEASE=onpre-001-oml-2-punto-0
+REPO_RELEASE=develop
 
 export COMPONENT_REPO=https://gitlab.com/omnileads/ominicontacto.git
 export COMPONENT_RELEASE=${omnileads_release}
