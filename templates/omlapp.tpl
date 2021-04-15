@@ -1,7 +1,69 @@
 #!/bin/bash
 
-HOST_DIR=/opt/omnileads/asterisk/var/spool/asterisk/monitor
+PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)
 PRIVATE_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
+
+REPO_URL=https://github.com/psychedelicto/omnileads-onpremise-cluster.git
+REPO_RELEASE=onpre-001-oml-2-punto-0
+
+export COMPONENT_REPO=https://gitlab.com/omnileads/ominicontacto.git
+export COMPONENT_RELEASE=${omnileads_release}
+export SRC=/usr/src
+
+export NIC=${NIC}
+export TZ=${TZ}
+export sca=${sca}
+export ami_user=${ami_user}
+export ami_password=${ami_password}
+export dialer_user=${dialer_user}
+export dialer_password=${dialer_password}
+export pg_database=${pg_database}
+export pg_username=${pg_username}
+export pg_password=${pg_password}
+export extern_ip=none
+
+if [[ "${pg_host}" != "NULL" ]]; then
+export PG_HOST=${pg_host}
+fi
+if [[ "${pg_port}" != "NULL" ]]; then
+export PG_PORT=${pg_port}
+fi
+if [[ "${kamailio_host}" != "NULL" ]]; then
+export KAMAILIO_HOST=${kamailio_host}
+fi
+if [[ "${rtpengine_host}" != "NULL" ]]; then
+export RTPENGINE_HOST=${rtpengine_host}
+fi
+if [[ "${asterisk_host}" != "NULL" ]]; then
+export ASTERISK_HOST=${asterisk_host}
+fi
+if [[ "${redis_host}" != "NULL" ]]; then
+export REDIS_HOST=${redis_host}
+fi
+if [[ "${dialer_host}" != "NULL" ]]; then
+export DIALER_HOST=${dialer_host}
+fi
+if [[ "${mysql_host}" != "NULL" ]]; then
+export MYSQL_HOST=${mysql_host}
+fi
+if [[ "${websocket_host}" != "NULL" ]]; then
+export WEBSOCKET_HOST=${websocket_host}
+fi
+
+export ENVIRONMENT_INIT=true
+
+################## UNCOMMENT only if you work with OML-2.0 #####################
+if [[ "${omnileads_release}" == "oml-1777-epica-separacion-componentes-oml" ]]; then
+  export OML_2=true
+  export KAMAILIO_BRANCH=develop
+  export ASTERISK_BRANCH=develop
+  export RTPENGINE_BRANCH=develop
+  export NGINX_BRANCH=develop
+  export REDIS_BRANCH=develop
+  export POSTGRES_BRANCH=develop
+  export WEBSOCKET_BRANCH=develop
+fi
+################################################################################
 
 echo "******************** SElinux disable ***************************"
 echo "******************** SElinux disable ***************************"
@@ -9,146 +71,35 @@ setenforce 0
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 
+echo  "**********Digital Ocean and OMniLeads /etc/hosts config *********************"
+echo  "**********Digital Ocean and OMniLeads /etc/hosts config *********************"
+sed -i 's/127.0.0.1 '$(hostname)'/#127.0.0.1 '$(hostname)'/' /etc/hosts
+sed -i 's/::1 '$(hostname)'/#::1 '$(hostname)'/' /etc/hosts
+
 echo "******************** yum update and install packages ***************************"
 echo "******************** yum update and install packages ***************************"
-yum update -y && yum install git python3-pip -y
+yum -y update
+yum -y install git python3-pip kernel-devel
 
-echo "******************** install ansible ***************************"
-echo "******************** install ansible ***************************"
-pip3 install --upgrade pip
-pip3 install --user 'ansible==2.9.2'
+echo "******************** run component install ***************************"
+echo "******************** run component install ***************************"
+git clone $REPO_URL
+cd omnileads-onpremise-cluster
+git checkout $REPO_RELEASE
+chmod +x 9_omlapp/omlapp_install.sh
+./9_omlapp/omlapp_install.sh
 
+rm -rf $SRC/omnileads-onpremise-cluster
 
-echo "******************** fix hostname and localhost issue on digitalocean ***************************"
-echo "******************** fix hostname and localhost issue on digitalocean ***************************"
-hostnamectl set-hostname "${omlapp_hostname}"
-sed -i 's/127.0.0.1 '${omlapp_hostname}'/#127.0.0.1 '${omlapp_hostname}'/' /etc/hosts
-sed -i 's/::1 '${omlapp_hostname}'/#::1 '${omlapp_hostname}'/' /etc/hosts
-
-
-echo "***************************** git clone omnileads repo ******************************"
-echo "***************************** git clone omnileads repo ******************************"
-cd /var/tmp
-git clone https://gitlab.com/omnileads/ominicontacto.git
-
-
-echo "***************************** inventory setting *************************************"
-echo "***************************** inventory setting *************************************"
-cd ominicontacto && git checkout ${omnileads_release}
-git submodule init
-git submodule update
-
-##############################################
-cd modules/kamailio && git checkout develop
-cd ../asterisk && git checkout develop
-cd ../rtpengine && git checkout develop
-cd ../nginx && git checkout develop
-cd ../redis && git checkout develop
-cd ../postgresql && git checkout develop
-cd ../..
-##############################################
-
-
-if [ "${deploy_type}" == "aio" ]; then
-  python ansible/deploy/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --ecctl=${ecctl} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --extern_ip=${extern_ip} \
-  --TZ=${TZ}
-elif [ "${deploy_type}" == "cluster" ]; then
-  python ansible/deploy/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --ecctl=${ecctl} \
-  --postgres_host=${pg_host} \
-  --postgres_port=${pg_port} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --redis_host=${redis_host} \
-  --rtpengine_host=${rtpengine_host} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --extern_ip=${extern_ip} \
-  --TZ=${TZ}
-elif [ "${deploy_type}" == "cluster_dialer" ]; then
-  python ansible/deploy/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --dialer_host=${dialer_host} \
-  --mysql_host=${mysql_host} \
-  --ecctl=${ecctl} \
-  --postgres_host=${pg_host} \
-  --postgres_port=${pg_port} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --redis_host=${redis_host} \
-  --rtpengine_host=${rtpengine_host} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --extern_ip=${extern_ip} \
-  --TZ=${TZ}
-elif [ "${deploy_type}" == "cluster_full" ]; then
-  python ansible/deploy/edit_inventory.py --self_hosted=yes \
-  --ami_user=${ami_user} \
-  --ami_password=${ami_password} \
-  --dialer_user=${dialer_user} \
-  --dialer_password=${dialer_password} \
-  --dialer_host=${dialer_host} \
-  --mysql_host=${mysql_host} \
-  --ecctl=${ecctl} \
-  --postgres_host=${pg_host} \
-  --postgres_port=${pg_port} \
-  --postgres_database=${pg_database} \
-  --postgres_user=${pg_username} \
-  --postgres_password=${pg_password} \
-  --redis_host=${redis_host} \
-  --rtpengine_host=${rtpengine_host} \
-  --kamailio_host=${kamailio_host} \
-  --sca=${sca} \
-  --schedule=${schedule} \
-  --extern_ip=${extern_ip} \
-  --TZ=${TZ}
-else
-  echo "******** ERROR you must to define the deploy type ERROR ********* "
-fi
-
-sleep 2
-
-echo "******************************** deploy.sh execution *******************************"
-echo "******************************** deploy.sh execution *******************************"
-cd ansible/deploy && ./deploy.sh -i --iface=${NIC}
-sleep 5
-if [ -d /usr/local/queuemetrics/ ]; then
-  systemctl stop qm-tomcat6 && systemctl disable qm-tomcat6
-  systemctl stop mariadb && systemctl disable mariadb
-fi
-
-#echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
-#echo "***************************** digitalocean requiere SSL to connect PGSQL ***************************"
-#echo "SSLMode       = require" >> /etc/odbc.ini
 
 echo "*********************** S3 call recordings ********************************"
 echo "*********************** S3 call recordings ********************************"
 yum install -y s3fs-fuse
 echo "${spaces_key}:${spaces_secret_key}" > ~/.passwd-s3fs
 chmod 600 ~/.passwd-s3fs
-echo "${spaces_bucket_name}:/${spaces_bucket_tenant} $HOST_DIR   fuse.s3fs _netdev,allow_other,use_path_request_style,url=https://sfo3.digitaloceanspaces.com 0 0" >> /etc/fstab
+echo "${spaces_bucket_name}:/${spaces_bucket_tenant} /opt/omnileads/asterisk/var/spool/asterisk/monitor   fuse.s3fs _netdev,allow_other,use_path_request_style,url=https://sfo3.digitaloceanspaces.com 0 0" >> /etc/fstab
 mount -a
-chown  omnileads.omnileads -R $HOST_DIR
+chown  omnileads.omnileads -R /opt/omnileads/asterisk/var/spool/asterisk/monitor
 
 echo "********************************** sngrep SIP sniffer install *********************************"
 echo "********************************** sngrep SIP sniffer install *********************************"
@@ -158,7 +109,6 @@ cd /root && git clone https://github.com/irontec/sngrep
 cd sngrep && ./bootstrap.sh && ./configure && make && make install
 ln -s /usr/local/bin/sngrep /usr/bin/sngrep
 
-echo "**************************** call recordings on RAMdisk ***************************************"
 echo "**************************** call recordings on RAMdisk ***************************************"
 echo "**************************** call recordings on RAMdisk ***************************************"
 

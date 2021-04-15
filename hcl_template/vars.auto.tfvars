@@ -21,7 +21,7 @@ img_docker = "docker-20-04"
 ## SIZING VARS ## SIZING VARS ## SIZING VARS
 
 # OMLapp component droplet size
-droplet_oml_size = "s-1vcpu-1gb"
+droplet_oml_size = "s-2vcpu-2gb"
 # RTPengine componenet droplet size
 droplet_rtp_size = "s-1vcpu-1gb"
 # REDIS component droplet size
@@ -60,7 +60,7 @@ network_interface = "eth1"
 ### OMniLeads App vars ### OMniLeads App vars ### OMniLeads App vars
 
 # OMLApp release to deploy
-oml_release = "oml-1777-epica-separacion-componentes-oml"
+oml_release="master"
 # Asterisk SIP Trunks allowed ips
 sip_allowed_ip = ["190.19.150.8/32"]
 # Time Zone to apply on Django

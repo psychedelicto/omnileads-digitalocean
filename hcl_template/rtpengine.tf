@@ -36,7 +36,7 @@
     inbound_rule {
       protocol            = "tcp"
       port_range          = "22222"
-      source_droplet_ids  = [module.droplet_kamailio.id[0]]
+      source_droplet_ids  = [module.droplet_omlapp.id[0]]
     }
 
     inbound_rule {

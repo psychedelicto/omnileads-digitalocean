@@ -12,16 +12,16 @@ data "template_file" "omlapp" {
     dialer_user                   = var.dialer_user
     dialer_password               = var.dialer_password
     ecctl                         = var.ecctl
-    pg_host                       = "NULL"
+    pg_host                       = module.droplet_postgresql.ipv4_address_private
     pg_port                       = "5432"
     pg_database                   = var.pg_database
     pg_username                   = var.pg_username
     pg_password                   = var.pg_password
-    rtpengine_host                = "NULL"
-    redis_host                    = "NULL"
-    dialer_host                   = "NULL"
-    mysql_host                    = "NULL"
-    kamailio_host                 = "NULL"
+    rtpengine_host                = module.droplet_rtpengine.ipv4_address_private
+    redis_host                    = module.droplet_redis.ipv4_address_private
+    dialer_host                   = module.droplet_wombat.ipv4_address_private
+    mysql_host                    = module.droplet_mariadb.ipv4_address_private
+    kamailio_host                 = module.droplet_kamailio.ipv4_address_private
     asterisk_host                 = "NULL"
     websocket_host                = "NULL"
     sca                           = var.sca
@@ -56,6 +56,7 @@ data "template_file" "omlapp" {
   user_data                   = data.template_file.omlapp.rendered
   }
 
+
   # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
   # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp # Firewall aplicado al droplet omlApp
 
@@ -71,32 +72,31 @@ data "template_file" "omlapp" {
 
     droplet_ids = [module.droplet_omlapp.id[0]]
 
-    ############ INBOUND ######################
-    # SSH all
+    # SSH from all
     inbound_rule {
       protocol         = "tcp"
       port_range       = "22"
       source_addresses = ["0.0.0.0/0"]
     }
-    # Web App all
+    # HTTPS from LB
     inbound_rule {
       protocol                  = "tcp"
       port_range                = "443"
       source_load_balancer_uids = [module.lb.lb_id]
     }
-    # WOMBAT all
+    # ASTERISK AMI from Wombat
     inbound_rule {
-      protocol            = "tcp"
-      port_range          = "8080"
-      source_addresses = ["0.0.0.0/0"]
+      protocol                  = "tcp"
+      port_range                = "5038"
+      source_droplet_ids        = [module.droplet_wombat.id[0]]
     }
-    # sRTP RTPENGINE all
+    # SIP from Kamailio
     inbound_rule {
-      protocol            = "udp"
-      port_range          = "20000-30000"
-      source_addresses = ["0.0.0.0/0"]
+      protocol                  = "udp"
+      port_range                = "5160"
+      source_droplet_ids        = [module.droplet_kamailio.id[0]]
     }
-    # SIP trunks ASTERISK public_ip_permit
+    # SIP from Trunks PSTN
     dynamic "inbound_rule" {
       iterator = sip_allowed_ip
       for_each = var.sip_allowed_ip
@@ -106,7 +106,7 @@ data "template_file" "omlapp" {
         source_addresses = var.sip_allowed_ip
       }
     }
-    # RTP trunks ASTERISK public_ip_permit
+    # RTP from Trunks PSTN
     dynamic "inbound_rule" {
       iterator = sip_allowed_ip
       for_each = var.sip_allowed_ip
@@ -116,7 +116,7 @@ data "template_file" "omlapp" {
         source_addresses = var.sip_allowed_ip
       }
     }
-    ############ OUTBOUND ######################
+
     outbound_rule {
       protocol              = "tcp"
       port_range            = "1-65535"
@@ -132,5 +132,5 @@ data "template_file" "omlapp" {
     outbound_rule {
     protocol              = "icmp"
     destination_addresses = ["0.0.0.0/0", "::/0"]
-  }
+    }
   }

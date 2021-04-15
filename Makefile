@@ -16,7 +16,7 @@ destroy:
 	cd ../$(ENV) && terraform destroy
 
 init:
-	utils/env_setup.sh prepare_deploy_links $(ENV) $(TYPE)
+	utils/env_setup.sh prepare_deploy_links $(ENV) $(TYPE) $(RELEASE)
 
 delete:
 	rm -rf ../$(ENV)
