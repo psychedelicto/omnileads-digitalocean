@@ -35,7 +35,7 @@ if [[ "${rtpengine_host}" != "NULL" ]]; then
 export RTPENGINE_HOST=${rtpengine_host}
 fi
 if [[ "${asterisk_host}" != "NULL" ]]; then
-export ASTERISK_HOST=
+export ASTERISK_HOST=${asterisk_host}
 fi
 if [[ "${redis_host}" != "NULL" ]]; then
 export REDIS_HOST=${redis_host}
@@ -47,23 +47,21 @@ if [[ "${mysql_host}" != "NULL" ]]; then
 export MYSQL_HOST=${mysql_host}
 fi
 if [[ "${websocket_host}" != "NULL" ]]; then
-export WEBSOCKET_HOST=
+export WEBSOCKET_HOST=${websocket_host}
 fi
 
 export ENVIRONMENT_INIT=true
 
 ################## UNCOMMENT only if you work with OML-2.0 #####################
 if [[ "${omnileads_release}" == "oml-1777-epica-separacion-componentes-oml" ]]; then
-
-export OML_2=true
-
-export KAMAILIO_BRANCH=develop
-export ASTERISK_BRANCH=develop
-export RTPENGINE_BRANCH=develop
-export NGINX_BRANCH=develop
-export REDIS_BRANCH=develop
-export POSTGRES_BRANCH=develop
-export WEBSOCKET_BRANCH=develop
+  export OML_2=true
+  export KAMAILIO_BRANCH=develop
+  export ASTERISK_BRANCH=develop
+  export RTPENGINE_BRANCH=develop
+  export NGINX_BRANCH=develop
+  export REDIS_BRANCH=develop
+  export POSTGRES_BRANCH=develop
+  export WEBSOCKET_BRANCH=develop
 fi
 ################################################################################
 
