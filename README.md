@@ -61,12 +61,13 @@ To spin up the deploy we are going to use the  *make* utility:
 * **make init**: The first step is to generate all the customer folder and build config files.
 
 ```
-make init ENV=$customer-name TYPE=$deploy-type
+make init ENV=$customer-name TYPE=$deploy-type RELEASE=$omnileads-release
 ```
 
-The ENV parameter refers to the name with which we want to identify the customer in the cloud infrastructure and the second TYPE has to do with the type of OML architecture to be deployed
+The ENV parameter refers to the name with which we want to identify the customer in the cloud infrastructure, TYPE has to do with the type of OML architecture to be deployed and optionally we can
+indicate de OMniLeads version to be deploy, if we do not do it, then the stable version is displayed by default.
 
-*TYPE=aio*, *TYPE=cluster* or *TYPE=cluster_dialer*
+*TYPE=aio*, *TYPE=cluster_a*, *TYPE=cluster_b* or *TYPE=cluster_c*
 
 The execution of *make init*  has generated the *../customer-name* directory where the *var.auto.tfvars* file resides. This file has many variables like the sizing of Droplets and Cluster components. You can tune this parameters according to the size of the operation to display:
 
